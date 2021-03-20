@@ -26,8 +26,11 @@ jobs:
           VERSION=":stable"
         fi
         TAG_BE="${REGISTRY}/keypax-backcontainer${VERSION}"
+        TAG_nx="${REGISTRY}/nginx-container:stable"
         echo ${TAG_BE}
         echo ::set-output name=tagbe::${TAG_BE}
+        echo ${TAG_nx}
+        echo ::set-output name=tagnx::${TAG_nx}
     - name: Set up QEMU
       uses: docker/setup-qemu-action@master
       with:
@@ -47,3 +50,10 @@ jobs:
         platforms: linux/amd64
         push: true
         tags: ${{ steps.prep.outputs.tagbe }}
+    - name: Build and Push nx         #IMAGEN DE CONTENEDOR DE NGINX
+      uses: docker/build-push-action@v2
+      with:
+        file: ./Dockerfile
+        platforms: linux/amd64
+        push: true
+        tags: ${{ steps.prep.outputs.tagnx }}
