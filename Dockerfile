@@ -16,5 +16,5 @@ RUN npm install
 COPY . .
 
 EXPOSE 8080
-CMD ["node","idex.js"]
+CMD ["node","index.js"]
 
