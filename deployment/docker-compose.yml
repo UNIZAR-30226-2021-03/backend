@@ -8,7 +8,7 @@ services:
   nginx-proxy:
     image: ghcr.io/unizar-30226-2021-03/backend/nginx-container:stable 
     ports:
-        - "80:80"
+      - "80:80"
     networks:
       - backend
     depends_on:

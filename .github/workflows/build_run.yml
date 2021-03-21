@@ -62,7 +62,7 @@ jobs:
       with:
         command: |
           mkdir -p "backend-app" && cd $_
-          curl -L https://raw.githubusercontent.com/UNIZAR-30226-2021-03/backend/main/deployment/docker-compose.yml > docker-compose.yaml
+          curl -L https://raw.githubusercontent.com/UNIZAR-30226-2021-03/backend/main/deployment/docker-compose.yml > docker-compose.yml
           curl -L https://raw.githubusercontent.com/UNIZAR-30226-2021-03/backend/main/deployment/start.sh > start.sh
           chmod u+x start.sh
           ./start.sh
