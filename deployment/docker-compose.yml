@@ -1,0 +1,18 @@
+version: '3.5'
+
+services:
+  backend:
+    image: ghcr.io/unizar-30226-2021-03/backend/keypax-backcontainer:stable 
+    networks:
+      - backend
+  nginx-proxy:
+    image: ghcr.io/unizar-30226-2021-03/backend/nginx-container:stable 
+    ports:
+        - "80:80"
+    networks:
+      - backend
+    depends_on:
+      - backend  
+networks:
+  backend:
+    driver: bridge
