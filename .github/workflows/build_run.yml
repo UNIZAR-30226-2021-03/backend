@@ -57,9 +57,15 @@ jobs:
         platforms: linux/amd64
         push: true
         tags: ${{ steps.prep.outputs.tagnx }}
-    - name: SSH into Server and run
+    - name: SSH into Server and run             #Mediante Secrets conecta a server y arranca back
       uses: fifsky/ssh-action@master
       with:
         command: |
           mkdir -p "backend-app" && cd $_
-          curl -L 
+          curl -L https://raw.githubusercontent.com/UNIZAR-30226-2021-03/backend/main/deployment/docker-compose.yml > docker-compose.yaml
+          curl -L https://raw.githubusercontent.com/UNIZAR-30226-2021-03/backend/main/deployment/start.sh > start.sh
+          chmod u+x start.sh
+          ./start.sh
+        host: ${{ secrets.BACKEND_HOST }}
+        user: ${{ secrets.BACKEND_HOST_USER }} 
+        key:  ${{ secrets.BACKEND_HOST_KEY}}
