@@ -7,7 +7,6 @@ services:
       - backend
   nginx-proxy:
     image: ghcr.io/unizar-30226-2021-03/backend/nginx-container:stable 
-    tty: true
     ports:
       - "80:80"
       - "443:443"
