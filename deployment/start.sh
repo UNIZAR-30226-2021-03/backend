@@ -1,8 +1,6 @@
 #!/bin/bash
 
-sudo docker-compose stop
-sleep 2
-sudo docker rmi --force $(sudo docker images -q)
+sudo docker-compose down --rmi
 sleep 2
 sudo docker-compose pull
 sleep 2
