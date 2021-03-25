@@ -1,4 +1,4 @@
-FROM nginx
+FROM nginx:alpine
 
 RUN apk add certbot certbot-nginx
 COPY ./nginx/nginx.conf /etc/nginx/
