@@ -1,8 +1,5 @@
-FROM nginx:alpine
+FROM jonasal/nginx-certbot:latest
 
-RUN apk add certbot certbot-nginx
-COPY ./nginx/nginx.conf /etc/nginx/
-COPY ./nginx/run.sh .
+COPY ./nginx/nginx.conf /etc/nginx/conf.d/
+
 EXPOSE 443 80
-
-CMD ["/bin/sh","run.sh"]

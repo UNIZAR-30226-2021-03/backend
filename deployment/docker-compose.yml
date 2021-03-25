@@ -7,6 +7,8 @@ services:
       - backend
   nginx-proxy:
     image: ghcr.io/unizar-30226-2021-03/backend/nginx-container:stable 
+    volumes:
+      - nginx_secrets:/etc/letsencrypt
     ports:
       - "80:80"
       - "443:443"
@@ -17,3 +19,5 @@ services:
 networks:
   backend:
     driver: bridge
+volumes:
+  nginx_secrets:
