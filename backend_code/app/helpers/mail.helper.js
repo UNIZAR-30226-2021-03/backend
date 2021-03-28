@@ -18,7 +18,7 @@ const sendVerify = (client,token) => {
         from: config.USER_EMAIL,
         to: client,
         subject: "Email de verificación KeyPax",
-        text: "https://keypax-api.hopto.org/"+token
+        text: "https://keypax-api.hopto.org/public"+token
     }
 
     transporter.sendMail(mailOptions, function(error,info)  {

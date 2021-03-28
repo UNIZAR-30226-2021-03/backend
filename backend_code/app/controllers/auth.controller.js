@@ -47,7 +47,8 @@ const LogIn = async(req,res) => {
     
         const userExist = await User.findUserByEmail(email);
 
-        if(userExist){
+        if(userExist === null || userExist.verified === false){
+            
             return res.status(404).end();
         }
         
