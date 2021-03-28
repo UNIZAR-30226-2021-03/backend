@@ -2,7 +2,7 @@ const nodemailer = require('nodemailer')
 const config = require('../config')
 
 
-const sendVerify = async(client,token) => {
+const sendVerify = (client,token) => {
 
     const transporter = nodemailer.createTransport({
         host: "smtp.gmail.com",
@@ -23,9 +23,9 @@ const sendVerify = async(client,token) => {
 
     transporter.sendMail(mailOptions, function(error,info)  {
         if (error){
-            return false;
-        } else { 
             return true;
+        } else { 
+            return null;
         }
      })
 }

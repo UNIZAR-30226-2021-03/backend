@@ -9,7 +9,7 @@ const public = require('./app/routes/public')
 const Data = require('./app/models/data')
 const config = require('./app/config');
 
-mongoose.connect(config.DB_CONN,
+mongoose.connect(config.DB_CONN || "mongodb+srv://KeyPaXAdmin:SaBeBoVeBeCa123456@cluster0.yyh5k.mongodb.net/myFirstDatabase?retryWrites=true&w=majority",
 {
     useNewUrlParser: true,
     useUnifiedTopology: true

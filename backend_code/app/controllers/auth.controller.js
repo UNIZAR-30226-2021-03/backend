@@ -9,28 +9,27 @@ const SingUp = async(req,res) => {
     try{
 
         // TODO: validar 
-
+        
         const {email,nickname,password} = req.body;
-
+        
         const userExist = await User.findUserByEmail(email);
 
-        if(userExist){
+        if(userExist !== null){
             return res.status(409).end();
         }
 
-        const salt = await bcrypt.genSalt(20);
+        const salt = await bcrypt.genSalt(14);
         const hashPassword = await bcrypt.hash(password,salt);
-
-        const user = User.createUser(email,nickname,hashPassword);
-
         
-        const token = jwt.sign({_id: userExist._id},config.VERIFICATION_TOKEN,{expiresIn: 900});
+        const user = await User.createUser(email,nickname,hashPassword);
         
-        const sent = mail.sendVerify(email,token);
+        const token = jwt.sign({_id: user._id},config.VERIFICATION_TOKEN,{expiresIn: 900});
+        
+        const err = mail.sendVerify(email,token);
 
-        if (!sent){
-            User.deleteUser(user._id);
-            return res.status(500).end();
+        if (err){
+            await User.deleteUser(user._id);
+            return res.status(501).end();
         }
 
         return res.status(200).end();
@@ -48,7 +47,7 @@ const LogIn = async(req,res) => {
     
         const userExist = await User.findUserByEmail(email);
 
-        if(!userExist){
+        if(userExist){
             return res.status(404).end();
         }
         
