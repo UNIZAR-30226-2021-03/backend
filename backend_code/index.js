@@ -23,6 +23,7 @@ app.set('port', config.PORT || 8080)
 
 app.use(cors())
 app.use(morgan('dev'))
+app.use(express.json())
 app.use('/public', public)
 
 app.listen(app.get('port'), () => {
