@@ -9,7 +9,7 @@ const public = require('./app/routes/public')
 const Data = require('./app/models/data')
 const config = require('./app/config');
 
-mongoose.connect(config.DB_CONN),
+mongoose.connect(config.DB_CONN,
 {
     useNewUrlParser: true,
     useUnifiedTopology: true
