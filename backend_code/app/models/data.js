@@ -9,17 +9,11 @@ const Data = new Schema({
         type: String,
         required: true
     },
-    user: {
-        name: {
-            type: String,
-            required: true
-        },
-        surname: {
-            type: String,
-            required: true
-        }
-    },
-    verificated: {
+    nickname: {
+        type: String,
+        required: true
+    }, 
+    verified: {
         type: Boolean,
         default: false
     },
