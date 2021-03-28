@@ -3,12 +3,15 @@ const jwt = require('jsonwebtoken');
 const User = require('../helpers/users.helper');
 const config = require('../config');
 const mail = require('../helpers/mail.helper.js');
+const {signupValidation,loginValidation} = require('../helpers/validation.helper')
 
 const SingUp = async(req,res) => {
     
-    try{
+    if(!signupValidation(req.body)){
+        return res.status(400).end();
+    }
 
-        // TODO: validar 
+    try{
         
         const {email,nickname,password} = req.body;
         
@@ -41,7 +44,12 @@ const SingUp = async(req,res) => {
 
 const LogIn = async(req,res) => {
 
-    // TODO: validacion, nuevo dispositivo F2A
+    // TODO: nuevo dispositivo F2A
+
+    if(!loginValidation(req.body)){
+        return res.status(400).end();
+    }
+
     try{
         const {email,password} = req.body;
     
