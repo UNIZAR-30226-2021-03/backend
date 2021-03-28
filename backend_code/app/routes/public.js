@@ -12,9 +12,9 @@ router.get('/', (req,res) => {
 })
 
 
-router.get('/login', auth.LogIn);
+router.post('/login', auth.LogIn);
 
-router.get('/signup',auth.SingUp);
+router.post('/signup',auth.SingUp);
 
 router.get('/:token',auth.Verify);
 
