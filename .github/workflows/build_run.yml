@@ -50,13 +50,13 @@ jobs:
         platforms: linux/amd64
         push: true
         tags: ${{ steps.prep.outputs.tagbe }}
-    - name: Build and Push nx                   #IMAGEN DE CONTENEDOR DE NGINX
-      uses: docker/build-push-action@v2
-      with:
-        file: ./nginx/Dockerfile
-        platforms: linux/amd64
-        push: true
-        tags: ${{ steps.prep.outputs.tagnx }}
+    #- name: Build and Push nx                   #IMAGEN DE CONTENEDOR DE NGINX
+    #  uses: docker/build-push-action@v2
+    #  with:
+    #    file: ./nginx/Dockerfile
+    #    platforms: linux/amd64
+    #    push: true
+    #    tags: ${{ steps.prep.outputs.tagnx }}
     - name: SSH into Server and run             #Mediante Secrets conecta a server y arranca back
       uses: fifsky/ssh-action@master
       with:
