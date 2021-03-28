@@ -60,7 +60,7 @@ jobs:
     - name: SSH into Server and run             #Mediante Secrets conecta a server y arranca back
       uses: fifsky/ssh-action@master
       with:
-        args: -tt
+        args: "-tt"
         command: |
           mkdir -p "backend-app" && cd $_ 
           curl -L https://raw.githubusercontent.com/UNIZAR-30226-2021-03/backend/main/deployment/docker-compose.yml > docker-compose.yml
