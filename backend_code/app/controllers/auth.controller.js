@@ -42,7 +42,7 @@ const SingUp = async(req,res) => {
 
 const LogIn = async(req,res) => {
 
-    // TODO: validacion
+    // TODO: validacion, nuevo dispositivo F2A
     try{
         const {email,password} = req.body;
     
