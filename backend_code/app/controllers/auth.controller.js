@@ -44,7 +44,7 @@ const SingUp = async(req,res) => {
 
 const LogIn = async(req,res) => {
 
-    // TODO: nuevo dispositivo F2A
+    // TODO: nuevo dispositivo, F2A
 
     if(!loginValidation(req.body)){
         return res.status(400).end();

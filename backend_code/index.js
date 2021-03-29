@@ -6,7 +6,8 @@ const app = express()
 const mongoose = require('mongoose')
 
 const public = require('./app/routes/public')
-const Data = require('./app/models/data')
+const private = require('./app/routes/private')
+const {authValidation} = require('./app/middleware/auth.middleware')
 const config = require('./app/config');
 
 mongoose.connect(config.DB_CONN || "mongodb+srv://KeyPaXAdmin:SaBeBoVeBeCa123456@cluster0.yyh5k.mongodb.net/myFirstDatabase?retryWrites=true&w=majority",
@@ -25,6 +26,7 @@ app.use(cors())
 app.use(morgan('dev'))
 app.use(express.json())
 app.use('/public', public)
+app.use('./private',authValidation,private)
 
 app.listen(app.get('port'), () => {
     console.log('App connected', app.get('port'))

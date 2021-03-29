@@ -19,7 +19,10 @@ const Data = new Schema({
     },
     category : [
         {
-            name: String,
+            name: {
+                type: String,
+                required: true
+            },
             info: [
                 {
                     username:{

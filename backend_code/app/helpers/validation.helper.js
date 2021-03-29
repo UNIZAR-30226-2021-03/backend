@@ -1,6 +1,6 @@
 const Joi = require('joi')
 
-const signupShema = Joi.object().keys(
+const signupSchema = Joi.object().keys(
     {
        email: Joi.string().email().required(),
        nickname: Joi.string().max(50).required(),
@@ -8,20 +8,42 @@ const signupShema = Joi.object().keys(
     }
 ) 
 
-const loginShema = Joi.object().keys(
+const loginSchema = Joi.object().keys(
     {
        email: Joi.string().email().required(),
        password: Joi.string().min(8).max(24).required() //TODO: cambiar valores
     }
 ) 
 
+const categorySchema = Joi.object().keys(
+    {
+       name: Joi.string().max(50).required()
+    }
+) 
+
+const infoSchema = Joi.object().keys(
+    {
+        username: Joi.string().required(),
+        password: Joi.string().required(),              //TODO: cambiar valores
+        url:  Joi.string().uri()
+    }
+) 
+
 const signupValidation = (user) => { 
-    return signupShema.validate(user)
+    return signupSchema.validate(user)
 }
 
 const loginValidation = (user) => {
-    return loginShema.validate(user)
+    return loginSchema.validate(user)
 }
 
-module.exports = {signupValidation,loginValidation}
+const categoryValidation = (name) => {
+    return categorySchema.validate(name)
+}
+
+const infoValidation = (info) => {
+    return infoSchema.validate(info)
+}
+
+module.exports = {signupValidation,loginValidation,categoryValidation,infoValidation}
 

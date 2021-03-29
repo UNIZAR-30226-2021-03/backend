@@ -2,6 +2,11 @@
 
 const Data = require('../models/data')
 
+const getPassword = async(id) => {
+    const {password} = await Data.findById(id);
+    return password
+}
+
 const findUserByEmail = async(email) => {
     const user = await Data.findOne({email:email})
     return user
@@ -37,4 +42,4 @@ const updateVerify = async(id) => {
     return await Data.findByIdAndUpdate(id,{verified:true})
 }
 
-module.exports = {findUserByEmail,createUser,deleteUser,updateUserEmail,updateUserNickName,updateUser, updateVerify}
+module.exports = {findUserByEmail,createUser,deleteUser,updateUserEmail,updateUserNickName,updateUser, updateVerify,getPassword}
