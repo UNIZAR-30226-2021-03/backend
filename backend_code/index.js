@@ -10,17 +10,78 @@ const private = require('./app/routes/private')
 const {authValidation} = require('./app/middleware/auth.middleware')
 const config = require('./app/config');
 
-//Para evitar deprecation warning al usar findOneAndUpdate
-mongoose.set('useFindAndModify',false);
-mongoose.connect(config.DB_CONN || "mongodb+srv://KeyPaXAdmin:SaBeBoVeBeCa123456@cluster0.yyh5k.mongodb.net/myFirstDatabase?retryWrites=true&w=majority",
+
+
+mongoose.connect(config.DB_CONN,
 {
     useNewUrlParser: true,
-    useUnifiedTopology: true
+    useUnifiedTopology: true,
+    useFindAndModify:false
 })
 
 mongoose.connection.once('open', () => {
     console.log('DB CONNECTION')
 })
+
+
+//const Data = require('./app/models/data')
+//newdata = new Data( {
+//    email : 'arturo3@gmail.com',
+//    password: '$2a$14$HpXQt6RxZJ9AB0Ot7lq24OYAKoSM0MtgCWerv9dfVIQyl4X2wo4pm',
+//    nickname: 'Arturo',
+//    verified: true,
+//    category: [
+//        {
+//            name: 'trabajo',
+//            info: [
+//                {
+//                    username: 'barbaros',
+//                    password: 'SaBeBoVeBeCa123456',
+//                    url : 'mongodb.com',
+//                },
+//                {
+//                    username: 'f',
+//                    password: 'dsfasdf',
+//                    url : 'mongodb-atlas.com',
+//                }
+//            ]
+//        },
+//        {
+//            name: 'casa',
+//            info: [
+//                {
+//                    username: 'barbaros',
+//                    password: 'SaBeBoVeBeCa123456',
+//                    url : 'mongodb.com',
+//                },
+//                {
+//                    username: 'f',
+//                    password: 'dsfasdf',
+//                    url : 'mongodb-atlas.com',
+//                }
+//            ]
+//        },
+//        {
+//            name: 'uni',
+//            info: [
+//                {
+//                    username: 'barbaros',
+//                    password: 'SaBeBoVeBeCa123456',
+//                    url : 'mongodb.com',
+//                },
+//                {
+//                    username: 'f',
+//                    password: 'dsfasdf',
+//                    url : 'mongodb-atlas.com',
+//                }
+//            ]
+//        }
+//    ]
+//})
+//
+//const saved = newdata.save()
+
+
 
 app.set('port', config.PORT || 8080)
 
