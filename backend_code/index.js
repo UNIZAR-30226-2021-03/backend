@@ -10,6 +10,8 @@ const private = require('./app/routes/private')
 const {authValidation} = require('./app/middleware/auth.middleware')
 const config = require('./app/config');
 
+//Para evitar deprecation warning al usar findOneAndUpdate
+mongoose.set('useFindAndModify',false);
 mongoose.connect(config.DB_CONN || "mongodb+srv://KeyPaXAdmin:SaBeBoVeBeCa123456@cluster0.yyh5k.mongodb.net/myFirstDatabase?retryWrites=true&w=majority",
 {
     useNewUrlParser: true,

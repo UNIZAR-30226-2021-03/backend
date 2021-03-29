@@ -6,7 +6,7 @@ const crypto = require('crypto');
 
 const GetCategories = async(req,res) => {
     try{
-        const user_id = req.body.token._id;
+        const user_id = req.token._id;
         const categories = await Data.getCategories(user_id);
         return res.status(200).send(categories);
     }catch(err){
@@ -16,10 +16,9 @@ const GetCategories = async(req,res) => {
 
 const GetInfos = async(req,res) => {
     try{
-        const user_id = req.body.token._id;
+        const user_id = req.token._id;
         const category_id = req.query.category_id;
         const exists = await Data.checkCategory(user_id,category_id)
-        
         if (exists){
             const infos = await Data.getInfos(category_id);
 
@@ -54,7 +53,7 @@ const CreateCategory = async(req,res) => {
     }
 
     try{
-        const user_id = req.body.token._id;
+        const user_id = req.token._id;
         
         const category = await Data.createCategory(user_id,req.body.name)
 
@@ -74,7 +73,7 @@ const CreateInfo = async(req,res) => {
     }
 
     try{       
-        const user_id = req.body.token._id; 
+        const user_id = req.token._id; 
         const {username, password, url, description, category_id} = req.body;
         const key = User.getPassword(user_id);
 
@@ -94,6 +93,8 @@ const CreateInfo = async(req,res) => {
         return res.status(500).send(err);
     }
 }
+
+//TODO: Delete categorias e infos
 
 
 module.exports = {GetCategories,GetInfos,CreateCategory,CreateInfo}

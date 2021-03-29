@@ -6,7 +6,17 @@ const createCategory = async(id,name) => {
         name: name,
         info: []
     }
-    return await Data.findByIdAndUpdate(id,{$push : { category: category}})
+    //New:true para que devuelva el documento actualizado
+    const cat = await Data.findByIdAndUpdate(id,{$push : { category: category}},{new: true})
+
+    var categories = cat.category.map(item => { 
+        return {
+        _id: item._id,
+        name: item.name
+      }
+    });
+
+    return categories
 }
 
 const deleteCategory = async(id) => {
@@ -14,11 +24,15 @@ const deleteCategory = async(id) => {
 }
 
 const getCategories = async(id) => {
-    const {categories} = await Data.findById(id)
-    return {
-        name : categories.name,
-        _id: categories._id
-    }
+    const {category} = await Data.findById(id);
+
+    var categories = category.map(item => { 
+        return {
+        _id: item._id,
+        name: item.name
+      }
+    });
+    return categories;
 }
 
 const checkCategory = async(user_id,category_id) => {
@@ -58,7 +72,7 @@ const deleteInfo = async(id) => {
 }
 
 const getInfos = async(id) => {
-    return await Data.findById(id)
+    return await Data.findById(id);
 }
 
 module.exports = {createCategory,createInfo,deleteCategory,deleteInfo,checkCategory, getCategories,getInfos}
