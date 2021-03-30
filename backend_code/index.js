@@ -83,7 +83,7 @@ mongoose.connection.once('open', () => {
 
 
 
-app.set('port', config.PORT || 8080)
+app.set('port', config.PORT)
 
 app.use(cors())
 app.use(morgan('dev'))

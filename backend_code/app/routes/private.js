@@ -1,18 +1,17 @@
 const router = require('express').Router()
-const data = require('../controllers/data.controller.js');
+const category = require('../controllers/category.controller.js');
+const info = require('../controllers/info.controller.js');
 
+router.post('/category',category.CreateCategory);
 
+router.post('/info',info.CreateInfo);
 
-router.post('/category',data.CreateCategory);
+router.delete('/info',info.DeleteInfo);
 
-router.post('/info',data.CreateInfo);
+router.delete('/category',category.DeleteCategory);
 
-router.delete('/info',data.DeleteInfo);
+router.get('/categories',category.GetCategories);
 
-router.delete('/category',data.DeleteCategory);
-
-router.get('/categories',data.GetCategories);
-
-router.get('/infos',data.GetInfos);
+router.get('/infos',info.GetInfos);
 
 module.exports = router;
