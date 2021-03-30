@@ -19,10 +19,6 @@ const createCategory = async(id,name) => {
     return categories
 }
 
-const deleteCategory = async(id) => {
-    return await Data.findByIdAndDelete(id)
-}
-
 const getCategories = async(id) => {
     const { category } = await Data.findById(id);
 
@@ -33,6 +29,14 @@ const getCategories = async(id) => {
       }
     });
     return categories;
+}
+
+const deleteCategory = async(user_id,category_id) => {
+    await Data.updateOne({_id : user_id}, {
+        $pull: {
+            category: { _id: category_id }
+        }
+    });
 }
 
 const checkCategory = async(user_id,category_id) => {
@@ -64,7 +68,7 @@ const createInfo = async(user_id,category_id,username,password,url,description) 
         url: url,
         description: description
     }
-    return await Data.updateOne(
+    await Data.updateOne(
         {
             _id: mongoose.Types.ObjectId(user_id), category: { 
                 $elemMatch: {
@@ -73,10 +77,20 @@ const createInfo = async(user_id,category_id,username,password,url,description) 
             }
         },
         { $push: { "category.$.info": info} })
+    
 }
 
-const deleteInfo = async(id) => {
-    return await Data.findByIdAndDelete(id)
+const deleteInfo = async(user_id,category_id,info_id) => {
+    await Data.updateOne({_id : user_id,
+        category: { 
+            $elemMatch: {
+                 _id: mongoose.Types.ObjectId(category_id)
+            }
+    }}, {
+        $pull: {
+            info: { _id: info_id }
+        }
+    });
 }
 
 const getInfos = async(id) => {

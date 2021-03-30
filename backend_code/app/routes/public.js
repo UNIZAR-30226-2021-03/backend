@@ -1,7 +1,9 @@
 const router = require('express').Router()
 const auth = require('../controllers/auth.controller.js');
+const crypto = require('crypto');
 
 router.get('/', (req,res) => {
+
     return res.send(
         {
             user: 'andoni',
