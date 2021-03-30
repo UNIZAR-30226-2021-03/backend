@@ -44,7 +44,7 @@ const SingUp = async(req,res) => {
 
 const LogIn = async(req,res) => {
 
-    // TODO: nuevo dispositivo, F2A
+    // TODO: nuevo dispositivo
 
     if(!loginValidation(req.body)){
         return res.status(400).end();
@@ -66,9 +66,16 @@ const LogIn = async(req,res) => {
             return res.status(401).end();
         }
 
-        const token = jwt.sign({_id: userExist._id},config.ACCESS_TOKEN,{expiresIn: 3600});
+        const code = (100000 + Math.floor(Math.random() * 900000)).toString();
+        const token = jwt.sign({_2faToken: code, _id: userExist._id },config._2FA_TOKEN,{expiresIn: 300});
 
-        return res.status(200).send({accessToken:token});
+        const err = mail.send2FA(email,code);
+        
+        if (err){
+            return res.status(501).end();
+        }
+
+        return res.status(200).send({_2faToken:token});
 
     }catch(err){
         return res.status(500).end();
@@ -86,4 +93,28 @@ const Verify = async(req,res) => {
     return res.status(401).end();
     
 } 
-module.exports = {SingUp,LogIn,Verify}
+
+const _2FA_Auth = async(req,res) => {
+    try{
+        const token = req.header('_2faToken');
+        if(!token){
+            res.status(403).end();
+        }
+
+        const secret = jwt.verify(token,config._2FA_TOKEN);
+        if (secret){
+            if(secret._2faToken == req.body.code){
+                const accessToken = jwt.sign({_id: secret._id},config.ACCESS_TOKEN,{expiresIn: 3600});
+                return res.status(200).send({accessToken:accessToken});
+            }else{
+                return res.status(401).end();
+            }
+        }else{
+            return res.status(401).end();
+        }
+    }catch(err){
+        console.log(err)
+        return res.status(401).send(err);
+    }
+}
+module.exports = {SingUp,LogIn,Verify,_2FA_Auth}

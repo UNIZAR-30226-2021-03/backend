@@ -20,8 +20,7 @@ router.post('/signup',auth.SingUp);
 
 router.get('/:token',auth.Verify);
 
-// router.get('/login',)
-// 
-// router.get('/login',)
+router.post('/2fa',auth._2FA_Auth);
+
 
 module.exports = router;
