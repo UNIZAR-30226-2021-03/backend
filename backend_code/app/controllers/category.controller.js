@@ -51,4 +51,25 @@ const DeleteCategory = async(req,res) => {
     }
 }
 
-module.exports = {CreateCategory,DeleteCategory,GetCategories}
+
+const UpdateCategory = async(req,res) => {
+    try{
+        const user_id = req.token._id;
+        const category_id = req.body.category_id;
+        const name = req.body.name;
+        const ok = await Category.updateCategory(user_id,category_id,name);
+        if(ok){
+            return res.status(200).end()
+        }else{
+            return res.status(400).end()
+        }
+    }
+    catch(err){
+        console.log(err);
+        return res.status(500).send(err)
+    }
+}
+
+
+
+module.exports = {CreateCategory,DeleteCategory,GetCategories,UpdateCategory}

@@ -1,5 +1,5 @@
 
-const {infoValidation} = require('../helpers/validation.helper');
+const {infoValidation,infoUpdateValidation} = require('../helpers/validation.helper');
 const User = require('../helpers/users.helper')
 const Info = require('../helpers/info.helper')
 const Category = require('../helpers/category.helper')
@@ -88,4 +88,39 @@ const DeleteInfo = async(req,res) => {
     }
 }
 
-module.exports = {GetInfos,CreateInfo,DeleteInfo}
+const UpdateInfo = async(req,res) => {
+
+    if(!infoUpdateValidation(req.body)){
+        return res.status(400).end();
+    }
+    try{       
+        const user_id = req.token._id; 
+        
+        const {username, password, url, description, category_id, info_id} = req.body;
+        let encrypted=undefined
+        if(password !== undefined){
+            let key = await User.getPassword(user_id);
+
+            key = crypto.createHash('sha256').update(String(key)).digest('base64').substr(0, 32);
+            const iv = crypto.randomBytes(16);
+            const cipher = crypto.createCipheriv('aes-256-ctr',key,iv);
+            encrypted = Buffer.concat([cipher.update(password), cipher.final()]);
+            const str = iv.toString('hex');
+            const str2 = encrypted.toString('hex');
+            encrypted = str.concat("-").concat(str2);
+        }
+        
+        const ok = await Info.updateInfo(user_id,category_id,info_id,username,encrypted,url,description)
+        
+        if(ok){
+            return res.status(200).end()
+        }else{
+            return res.status(400).end()
+        }
+        
+    }catch(err){
+        return res.status(500).send(err);
+    }
+}
+
+module.exports = {GetInfos,CreateInfo,DeleteInfo,UpdateInfo}

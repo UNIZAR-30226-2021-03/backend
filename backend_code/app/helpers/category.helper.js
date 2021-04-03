@@ -1,17 +1,6 @@
 const Data = require('../models/data')
 const mongoose = require('mongoose')
 
-const createCategory = async(id,name) => {
-    const category = {
-        name: name,
-        info: []
-    }
-    
-    const cat = await Data.findByIdAndUpdate(id,{$push : { category: category}},{new: true})
-
-    return res.n === 1;
-}
-
 const getCategories = async(id) => {
     const { category } = await Data.findById(id);
 
@@ -22,6 +11,16 @@ const getCategories = async(id) => {
       }
     });
     return categories;
+}
+
+const createCategory = async(id,name) => {
+    const category = {
+        name: name,
+        info: []
+    }
+    
+    const res = await Data.updateOne({_id:id},{$push : { category: category}})
+    return res.n === 1;
 }
 
 const deleteCategory = async(user_id,category_id) => {
@@ -51,8 +50,23 @@ const checkCategory = async(user_id,category_id) => {
     if(res){
         return true
     }else{
-        false
+        return false
     }
 }
 
-module.exports = {createCategory,getCategories,deleteCategory,checkCategory}
+const updateCategory = async(user_id,category_id,name) => {
+    const res = await Data.updateOne(
+        { _id:user_id, 
+            category: {
+            $elemMatch: {_id:category_id}
+            }
+        },{
+            $set: {
+                "category.$.name": name
+            }
+        }
+    )
+    return res.n === 1;
+}
+
+module.exports = {createCategory,getCategories,deleteCategory,checkCategory,updateCategory}

@@ -11,7 +11,9 @@ const {authValidation} = require('./app/middleware/auth.middleware')
 const config = require('./app/config');
 
 
-
+//const p = require('./app/helpers/info.helper')
+//
+//p.updateInfo('6062450ccb63284dfa78089a','6062450ccb63284dfa78089b','606332871df6611e154b3619','p1','1234','facebook@gmail.com','holamundo')
 mongoose.connect(config.DB_CONN,
 {
     useNewUrlParser: true,

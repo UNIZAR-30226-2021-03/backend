@@ -153,6 +153,7 @@ return: 200
 - username string
 - password string
 - url es una uri
+- category_id es id de categoría válido, string simple
 
 **return**:
 - Status code 400: no se puede crear la info
@@ -170,7 +171,7 @@ url: https://keypax-api.hotpo.org/private/info
 body : { 
     "username": "andoni", 
     "password": "1234", 
-    "url":"facebook.com", 
+    "url":"http://facebook.com", 
     "description": "contraseña de facebook", 
     "category_id": "341d13gab"
     }
@@ -290,4 +291,73 @@ url: https://keypax-api.hotpo.org/private/infos/?category_id=6638380ccb63284dfa7
 
 ```
 
-## FALTAN RUTAS DE UPDATE, METER FICHEROS.
+## PUT to https://keypax-api.hotpo.org/private/category
+
+**headers**: {accessToken: "token de acceso expedido por login + 2fa "}
+
+**body**: { "name": "nombre nuevo de la categoria", "category_id": "id de categoría a actualizar" }
+
+**query**: none
+
+**requirements**: 
+- nombre de categoría string simple
+- category_id es id de categoría válido, string simple
+
+**return**:
+- Status code 400: no se puede actualizae la categoría
+- Status code 401: token no verificado
+- Status code 403: no existe token
+- Status code 500: server error
+- Status code 200: petición procesada correctamente, renombra la categoría con id "category_id"
+
+**example**:
+
+headers: {accessToken: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MDY4MmFkZDc3ZjNhYjkxZTgyYzY0YzciLCJpYXQiOjE2MTc0Mzk0NTMsImV4cCI6MTYxNzQ0MDM1M30.67xl3NatXWMiqIf6LSLi-m0l8MBVzr_aQJ-XSanxgo0"}
+
+url: https://keypax-api.hotpo.org/private/category
+
+```
+body : { "name": "Universidad", "category": "sdf1q42143kn"}
+```
+return: 200
+
+## PUT to https://keypax-api.hotpo.org/private/info
+
+**headers**: {accessToken: "token de acceso expedido por login + 2fa "}
+
+**body**: { "username": "usuario asociado a la contraseña",
+"password": "contraseña a cifrar", "url": "link del sitio asociado", "description": "descripción de la contraseña", "category_id": "id de la categoría a la que pertenece la info a actualizar", "info_id":"id de la info a actualizar"}
+
+(Si no se indica uno de los campos, no se actualiza)
+
+**query**: none
+
+**requirements**: 
+- category_id es id de categoría válido, string simple
+- info_id es id de info válido, string simple
+
+**return**:
+- Status code 400: no se puede actualizar la info
+- Status code 401: token no verificado
+- Status code 403: no existe token
+- Status code 500: server error
+- Status code 200: petición procesada correctamente, actualiza la info de id "info_id" perteneciente a la categoría de id "category_id"
+
+**example**:
+
+headers: {accessToken: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MDY4MmFkZDc3ZjNhYjkxZTgyYzY0YzciLCJpYXQiOjE2MTc0Mzk0NTMsImV4cCI6MTYxNzQ0MDM1M30.67xl3NatXWMiqIf6LSLi-m0l8MBVzr_aQJ-XSanxgo0"}
+
+url: https://keypax-api.hotpo.org/private/info
+```
+body : { 
+    "username": "andoni", 
+    "password": "1234", 
+    "url":"https://facebook.com", 
+    "description": "contraseña de facebook", 
+    "category_id": "341d13gab",
+    "category_id": "341d13g3232",
+    }
+```
+return: 200
+
+## FALTAN RUTAS METER FICHEROS Y ORDENACIÓN
