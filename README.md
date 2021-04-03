@@ -46,6 +46,7 @@ return: 200
 **query**: none
 
 **return**:
+
 - Status code 400: no se cumplen los requirements.
 - Status code 401: contraseña incorrecta.
 - Status code 404: el usuario no existe o no esta verificado.
@@ -333,6 +334,7 @@ return: 200
 **query**: none
 
 **requirements**: 
+
 - category_id es id de categoría válido, string simple
 - info_id es id de info válido, string simple
 

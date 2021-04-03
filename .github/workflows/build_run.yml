@@ -62,6 +62,7 @@ jobs:
       with:
         args: "-tt"
         command: |
+          sudo systemctl start noip2.service
           mkdir -p "backend-app" && cd $_ 
           curl -L https://raw.githubusercontent.com/UNIZAR-30226-2021-03/backend/main/deployment/docker-compose.yml > docker-compose.yml
           curl -L https://raw.githubusercontent.com/UNIZAR-30226-2021-03/backend/main/deployment/start.sh > start.sh
