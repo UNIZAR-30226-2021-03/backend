@@ -25,7 +25,8 @@ const infoSchema = Joi.object().keys(
     {
         username: Joi.string().required(),
         password: Joi.string().required(),              //TODO: cambiar valores
-        url:  Joi.string().uri()
+        url:  Joi.string().uri(),
+        description:  Joi.string()
     }
 ) 
 

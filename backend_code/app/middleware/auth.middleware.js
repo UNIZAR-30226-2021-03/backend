@@ -5,7 +5,7 @@ const authValidation = (req,res,next) => {
     try{
         const token = req.header('accessToken')
         if(!token){
-            res.status(403).end()
+            return res.status(403).end()
         }
 
         const verified = jwt.verify(token,config.ACCESS_TOKEN)

@@ -14,17 +14,22 @@ const SingUp = async(req,res) => {
     try{
         
         const {email,nickname,password} = req.body;
+        let user;
         
         const userExist = await User.findUserByEmail(email);
 
-        if(userExist !== null){
+        if(userExist !== null && userExist.verified === true){
             return res.status(409).end();
         }
-
-        const salt = await bcrypt.genSalt(14);
-        const hashPassword = await bcrypt.hash(password,salt);
-        
-        const user = await User.createUser(email,nickname,hashPassword);
+        else if (userExist === null){
+            const salt = await bcrypt.genSalt(14);
+            const hashPassword = await bcrypt.hash(password,salt);
+            
+            user = await User.createUser(email,nickname,hashPassword);
+        }else{
+            user=userExist
+        }
+        //Puede haber fallado la verifificación anterior y existir el user
         
         const token = jwt.sign({_id: user._id},config.VERIFICATION_TOKEN,{expiresIn: 900});
         
@@ -85,18 +90,21 @@ const LogIn = async(req,res) => {
 const Verify = async(req,res) => {
     
     const token = req.params.token;
-    const verified = jwt.verify(token,config.VERIFICATION_TOKEN);
-    if(verified){
-        User.updateVerify(verified._id);
-        return res.status(200).end();
+    try{
+        const verified = jwt.verify(token,config.VERIFICATION_TOKEN);
+        if(verified){
+            User.updateVerify(verified._id);
+            return res.status(200).end();
+        }
+        return res.status(401).end();
+    }catch(err){
+        return res.status(401).send(err);
     }
-    return res.status(401).end();
-    
 } 
 
 const _2FA_Auth = async(req,res) => {
     try{
-        const token = req.header('_2faToken');
+        const token = req.body._2faToken;
         if(!token){
             res.status(403).end();
         }
