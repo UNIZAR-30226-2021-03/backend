@@ -1,5 +1,6 @@
-const nodemailer = require('nodemailer')
-const config = require('../config')
+const nodemailer = require('nodemailer');
+const config = require('../config');
+const pug = require('pug');
 
 
 const sendVerify = (client,token) => {
@@ -17,8 +18,10 @@ const sendVerify = (client,token) => {
     const mailOptions = {
         from: config.USER_EMAIL,
         to: client,
-        subject: "Email de verificación KeyPax",
-        text: "https://keypax-api.hopto.org/public/"+token
+        subject: "Email de verificación KeyPax.",
+        text: "Verifica tu email.",
+        html: pug.renderFile(__dirname+'/../templates/verification_email.pug',
+                            {token: token})
     }
 
     transporter.sendMail(mailOptions, function(error,info)  {
@@ -45,8 +48,10 @@ const send2FA = (client,code) => {
     const mailOptions = {
         from: config.USER_EMAIL,
         to: client,
-        subject: "Email de 2FA KeyPax",
-        text: code
+        subject: "Email de 2FA KeyPax.",
+        text: "Tu código de verificación.",
+        html: pug.renderFile(__dirname+'/../templates/2fa_email.pug',
+                            {code: code})
     }
 
     transporter.sendMail(mailOptions, function(error,info)  {

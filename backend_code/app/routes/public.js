@@ -18,7 +18,7 @@ router.post('/login', auth.LogIn);
 
 router.post('/signup',auth.SingUp);
 
-router.get('/:token',auth.Verify);
+router.get('/verify/:token',auth.Verify);
 
 router.post('/2fa',auth._2FA_Auth);
 

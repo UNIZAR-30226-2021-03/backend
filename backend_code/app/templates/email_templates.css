@@ -1,0 +1,48 @@
+
+* {
+    font-family: 'PT Sans', sans-serif;
+}
+
+.mail{
+    text-align: center;
+}
+
+.mail > h1 {
+    font-size: 3rem;
+    color: rgb(42, 46, 233);
+}
+
+.mail > p {
+    font-size: 1.5rem;
+    color: rgb(15, 15, 15);
+}
+
+.a-btn--outline2{
+    text-decoration:none;
+    background-color: transparent;
+    font-size: 1.5rem;
+    color: rgb(64, 62, 226);
+    padding: 6px 12px;
+    margin-left: 5px;
+    margin-right: 5px;
+    width: 9rem;
+    height: 4rem;
+    border: 1px solid rgb(64, 62, 226);
+    transition: all 1s ease-out;
+    border-radius: 5px 5px 5px 5px;
+}
+
+.a-btn--outline2:hover{
+    text-decoration:none;
+    transition: all 1s ease-out;
+    background-color: rgb(8, 187, 8);
+    color: #ffffff;
+    border: 1px solid rgb(8, 187, 8);
+    font-size: 1.5rem;
+    padding: 6px 12px;
+    width: 9rem;
+    height: 4rem;
+    margin-left: 5px;
+    margin-right: 5px;
+    border-radius: 5px 5px 5px 5px;
+}
