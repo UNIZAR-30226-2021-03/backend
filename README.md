@@ -1,16 +1,14 @@
-# backend
+# BACKEND
 
-## Rutas públicas: (Auth de usuarios, incluye 2fa y verificación email)
+## POST to https://keypax-api.hotpo.org/public/signup 
 
-### POST to https://keypax-api.hotpo.org/public/signup 
+**headers**: none
 
-headers: none
+**body**: { "email":"user_email", "nickname":"user_nickname", "password":"master_password" }
 
-body: { "email":"user_email", "nickname":"user_nickname", "password":"master_password" }
+**query**: none
 
-query: none
-
-return:
+**return**:
 - Status code 400: no se cumplen los requirements.
 - Status code 409: ya existe un usuario verificado con el mismo email.
 - Status code 501: no puede enviar el email de verificación.
@@ -23,12 +21,12 @@ return:
 
 (El correo de verificación tiene un tiempo de expiración de media hora)
 
-requirements: 
+**requirements**: 
 - Campo email debe ser email válido. 
 - Campo nickname debe ser string simple.
 - Campo password debe ser string simple.
 
-example:
+**example**:
 https://keypax-api.hotpo.org/public/signup 
 ```
 body: { 
@@ -39,15 +37,15 @@ body: {
 ```
 return: 200
 
-### POST to https://keypax-api.hotpo.org/public/login
+## POST to https://keypax-api.hotpo.org/public/login
 
-headers: none
+**headers**: none
 
-body: { "email":"user_email", "password":"master_password" }
+**body**: { "email":"user_email", "password":"master_password" }
 
-query: none
+**query**: none
 
-return:
+**return**:
 - Status code 400: no se cumplen los requirements.
 - Status code 401: contraseña incorrecta.
 - Status code 404: el usuario no existe o no esta verificado.
@@ -59,11 +57,11 @@ return:
 
 (Necesario para hacer login conservar el token _2faToken y el código enviado por email)
 
-requirements: 
+**requirements**: 
 - Campo email debe ser email válido y de usuario registrado.
 - Campo password debe ser string simple.
 
-example:
+**example**:
 https://keypax-api.hotpo.org/public/login 
 
 ```
@@ -78,30 +76,30 @@ return: 200
 ```
 
 
-### GET to https://keypax-api.hotpo.org/public/verify/:token
+## GET to https://keypax-api.hotpo.org/public/verify/:token
 
-headers: none
-query: none
-params: token
+**headers**: none
+**query**: none
+**params**: token
 
-return:
+**return**:
 - Status code 401: token incorrecto o expirado
 - Status code 200: token correcto, verifica el email del usuario. 
 
-example: 
+**example**: 
 https://keypax-api.hotpo.org/public/verify/eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MDY4MmFkZDc3ZjNhYjkxZTgyYzY0YzciLCJpYXQiOjE2MTc0NDIzMjIsImV4cCI6MTYxNzQ0MzIyMn0.50LBHkmr6laRUAeC5Yp-Ab3kHL9N765Eo8Gy1oV-gus
 
-### POST to https://keypax-api.hotpo.org/public/2fa
+## POST to https://keypax-api.hotpo.org/public/2fa
 
-headers: none
-body: { "_2faToken: "token expedido por backend desde login" , code: "codigo que llega al correo"}
+**headers**: none
+**body**: { "_2faToken: "token expedido por backend desde login" , code: "codigo que llega al correo"}
 
-return:
+**return**:
 
 - Status code 401: token incorrecto o expirado o código incorrecto
 - Status code 200: token correcto, devuelve token de acceso (accessToken) tiempo de expiración 1h.
 
-example:
+**example**:
 
 url: https://keypax-api.hotpo.org/public/2fa
 
@@ -111,27 +109,26 @@ return: 200
 ```
  { accessToken: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MDY4MmFkZDc3ZjNhYjkxZTgyYzY0YzciLCJpYXQiOjE2MTc0Mzk0NTMsImV4cCI6MTYxNzQ0MDM1M30.67xl3NatXWMiqIf6LSLi-m0l8MBVzr_aQJ-XSanxgo0"}
 ```
-## Rutas privadas: 
 
-### POST to https://keypax-api.hotpo.org/private/category
+## POST to https://keypax-api.hotpo.org/private/category
 
-headers: {accessToken: "token de acceso expedido por login + 2fa "}
+**headers**: {accessToken: "token de acceso expedido por login + 2fa "}
 
-body : { "name": "nombre de la categoria"}
+**body**: { "name": "nombre de la categoria"}
 
-query: none
+**query**: none
 
-requirements : 
+**requirements**: 
 - nombre de categoría string simple
 
-return:
+**return**:
 - Status code 400: no se puede crear la categoría
 - Status code 401: token no verificado
 - Status code 403: no existe token
 - Status code 500: server error
 - Status code 200: petición procesada correctamente, crea una categoría "vacía" de nombre "name" para el usuario.
 
-example:
+**example**:
 
 headers: {accessToken: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MDY4MmFkZDc3ZjNhYjkxZTgyYzY0YzciLCJpYXQiOjE2MTc0Mzk0NTMsImV4cCI6MTYxNzQ0MDM1M30.67xl3NatXWMiqIf6LSLi-m0l8MBVzr_aQJ-XSanxgo0"}
 
@@ -143,28 +140,28 @@ body : { "name": "Universidad"}
 return: 200
 
 
-### POST to https://keypax-api.hotpo.org/private/info
+## POST to https://keypax-api.hotpo.org/private/info
 
-headers: {accessToken: "token de acceso expedido por login + 2fa "}
+**headers**: {accessToken: "token de acceso expedido por login + 2fa "}
 
-body : { "username": "usuario asociado a la contraseña",
+**body**: { "username": "usuario asociado a la contraseña",
 "password": "contraseña a cifrar", "url": "link del sitio asociado", "description": "descripción de la contraseña", "category_id": "id de la categoría a la que pertenece"}
 
-query: none
+**query**: none
 
-requirements : 
+**requirements**: 
 - username string
 - password string
 - url es una uri
 
-return:
+**return**:
 - Status code 400: no se puede crear la info
 - Status code 401: token no verificado
 - Status code 403: no existe token
 - Status code 500: server error
 - Status code 200: petición procesada correctamente, crea una nueva "info" para la categoria de id "category_id".
 
-example:
+**example**:
 
 headers: {accessToken: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MDY4MmFkZDc3ZjNhYjkxZTgyYzY0YzciLCJpYXQiOjE2MTc0Mzk0NTMsImV4cCI6MTYxNzQ0MDM1M30.67xl3NatXWMiqIf6LSLi-m0l8MBVzr_aQJ-XSanxgo0"}
 
@@ -181,52 +178,52 @@ body : {
 return: 200
 
 
-### DELETE to https://keypax-api.hotpo.org/private/category
+## DELETE to https://keypax-api.hotpo.org/private/category
 
-headers: {accessToken: "token de acceso expedido por login + 2fa "}
+**headers**: {accessToken: "token de acceso expedido por login + 2fa "}
 query: category_id
 
-return:
+**return**:
 - Status code 400: no se puede borrar
 - Status code 401: token no verificado
 - Status code 403: no existe token
 - Status code 500: server error
 - Status code 200: petición procesada correctamente, elimina la categoría con id "category_id".
 
-example: 
+**example**: 
 
 headers: {accessToken: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MDY4MmFkZDc3ZjNhYjkxZTgyYzY0YzciLCJpYXQiOjE2MTc0Mzk0NTMsImV4cCI6MTYxNzQ0MDM1M30.67xl3NatXWMiqIf6LSLi-m0l8MBVzr_aQJ-XSanxgo0"}
 
 url:  https://keypax-api.hotpo.org/private/category/?category_id=1ef1134fdacb1
 
-### DELETE to https://keypax-api.hotpo.org/private/info
+## DELETE to https://keypax-api.hotpo.org/private/info
 
-headers: {accessToken: "token de acceso expedido por login + 2fa "}
+**headers**: {accessToken: "token de acceso expedido por login + 2fa "}
 
-return:
+**return**:
 - Status code 400: no se puede borrar
 - Status code 401: token no verificado
 - Status code 403: no existe token
 - Status code 500: server error
 - Status code 200: petición procesada correctamente, elimina la info de id "info_id" perteneciente a la cateroría con id "category_id".
 
-example: 
+**example**: 
 
 headers: {accessToken: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MDY4MmFkZDc3ZjNhYjkxZTgyYzY0YzciLCJpYXQiOjE2MTc0Mzk0NTMsImV4cCI6MTYxNzQ0MDM1M30.67xl3NatXWMiqIf6LSLi-m0l8MBVzr_aQJ-XSanxgo0"}
 
 url:  https://keypax-api.hotpo.org/private/category/?info_id=1fb25ywef&category_id=1ef1134fdacb1
 
-### GET to https://keypax-api.hotpo.org/private/categories
+## GET to https://keypax-api.hotpo.org/private/categories
 
- headers: {accessToken: "token de acceso expedido por login + 2fa "}
+**headers**: {accessToken: "token de acceso expedido por login + 2fa "}
 
-return:
+**return**:
 - Status code 500: server error
 - Status code 401: token no verificado
 - Status code 403: no existe token
 - Status code 200: petición procesada correctamente, devuelve todas las categorias junto a sus id
 
-example: 
+**example**: 
 
 headers: {accessToken: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MDY4MmFkZDc3ZjNhYjkxZTgyYzY0YzciLCJpYXQiOjE2MTc0Mzk0NTMsImV4cCI6MTYxNzQ0MDM1M30.67xl3NatXWMiqIf6LSLi-m0l8MBVzr_aQJ-XSanxgo0"}
 
@@ -247,19 +244,19 @@ url:  https://keypax-api.hotpo.org/private/categories
     }
 ]
 ```
-### GET to https://keypax-api.hotpo.org/private/infos
+## GET to https://keypax-api.hotpo.org/private/infos
 
-headers: {accessToken: "token de acceso expedido por login + 2fa "}
+**headers**: {accessToken: "token de acceso expedido por login + 2fa "}
 
-query : category_id
+**query**: category_id
 
-return:
+**return**:
 - Status code 500: server error
 - Status code 401: token no verificado
 - Status code 403: no existe token
 - Status code 200: petición procesada correctamente, devuelve todas las contraseñas junto a sus campos de la categoria category_id.
 
-example: 
+**example**: 
 
 headers: {accessToken: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MDY4MmFkZDc3ZjNhYjkxZTgyYzY0YzciLCJpYXQiOjE2MTc0Mzk0NTMsImV4cCI6MTYxNzQ0MDM1M30.67xl3NatXWMiqIf6LSLi-m0l8MBVzr_aQJ-XSanxgo0"}
 
