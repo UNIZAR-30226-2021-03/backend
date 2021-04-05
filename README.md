@@ -1,6 +1,6 @@
 # BACKEND
 
-## POST to https://keypax-api.hotpo.org/public/signup 
+## 1: POST to https://keypax-api.hotpo.org/public/signup 
 
 **headers**: none
 
@@ -37,7 +37,7 @@ body: {
 ```
 return: 200
 
-## POST to https://keypax-api.hotpo.org/public/login
+## 2: POST to https://keypax-api.hotpo.org/public/login
 
 **headers**: none
 
@@ -77,10 +77,12 @@ return: 200
 ```
 
 
-## GET to https://keypax-api.hotpo.org/public/verify/:token
+## 3: GET to https://keypax-api.hotpo.org/public/verify/:token
 
 **headers**: none
+
 **query**: none
+
 **params**: token
 
 **return**:
@@ -90,10 +92,11 @@ return: 200
 **example**: 
 https://keypax-api.hotpo.org/public/verify/eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MDY4MmFkZDc3ZjNhYjkxZTgyYzY0YzciLCJpYXQiOjE2MTc0NDIzMjIsImV4cCI6MTYxNzQ0MzIyMn0.50LBHkmr6laRUAeC5Yp-Ab3kHL9N765Eo8Gy1oV-gus
 
-## POST to https://keypax-api.hotpo.org/public/2fa
+## 4: POST to https://keypax-api.hotpo.org/public/2fa
 
 **headers**: none
-**body**: { "_2faToken: "token expedido por backend desde login" , code: "codigo que llega al correo"}
+
+**body**: { "_2faToken": "token expedido por backend desde login" , "code": "codigo que llega al correo"}
 
 **return**:
 
@@ -111,7 +114,7 @@ return: 200
  { accessToken: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MDY4MmFkZDc3ZjNhYjkxZTgyYzY0YzciLCJpYXQiOjE2MTc0Mzk0NTMsImV4cCI6MTYxNzQ0MDM1M30.67xl3NatXWMiqIf6LSLi-m0l8MBVzr_aQJ-XSanxgo0"}
 ```
 
-## POST to https://keypax-api.hotpo.org/private/category
+## 5: POST to https://keypax-api.hotpo.org/private/category
 
 **headers**: {accessToken: "token de acceso expedido por login + 2fa "}
 
@@ -141,12 +144,14 @@ body : { "name": "Universidad"}
 return: 200
 
 
-## POST to https://keypax-api.hotpo.org/private/info
+## 6: POST to https://keypax-api.hotpo.org/private/info
 
 **headers**: {accessToken: "token de acceso expedido por login + 2fa "}
 
-**body**: { "username": "usuario asociado a la contraseña",
+**body**: 
+{ "username": "usuario asociado a la contraseña",
 "password": "contraseña a cifrar", "url": "link del sitio asociado", "description": "descripción de la contraseña", "category_id": "id de la categoría a la que pertenece"}
+
 
 **query**: none
 
@@ -180,10 +185,11 @@ body : {
 return: 200
 
 
-## DELETE to https://keypax-api.hotpo.org/private/category
+## 7: DELETE to https://keypax-api.hotpo.org/private/category
 
 **headers**: {accessToken: "token de acceso expedido por login + 2fa "}
-query: category_id
+
+**query**: category_id
 
 **return**:
 - Status code 400: no se puede borrar
@@ -198,9 +204,11 @@ headers: {accessToken: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MDY4MmF
 
 url:  https://keypax-api.hotpo.org/private/category/?category_id=1ef1134fdacb1
 
-## DELETE to https://keypax-api.hotpo.org/private/info
+## 8: DELETE to https://keypax-api.hotpo.org/private/info
 
 **headers**: {accessToken: "token de acceso expedido por login + 2fa "}
+
+**query**: category_id, info_id
 
 **return**:
 - Status code 400: no se puede borrar
@@ -215,7 +223,7 @@ headers: {accessToken: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MDY4MmF
 
 url:  https://keypax-api.hotpo.org/private/category/?info_id=1fb25ywef&category_id=1ef1134fdacb1
 
-## GET to https://keypax-api.hotpo.org/private/categories
+## 9: GET to https://keypax-api.hotpo.org/private/categories
 
 **headers**: {accessToken: "token de acceso expedido por login + 2fa "}
 
@@ -246,7 +254,7 @@ url:  https://keypax-api.hotpo.org/private/categories
     }
 ]
 ```
-## GET to https://keypax-api.hotpo.org/private/infos
+## 10: GET to https://keypax-api.hotpo.org/private/infos
 
 **headers**: {accessToken: "token de acceso expedido por login + 2fa "}
 
@@ -292,7 +300,7 @@ url: https://keypax-api.hotpo.org/private/infos/?category_id=6638380ccb63284dfa7
 
 ```
 
-## PUT to https://keypax-api.hotpo.org/private/category
+## 11: PUT to https://keypax-api.hotpo.org/private/category
 
 **headers**: {accessToken: "token de acceso expedido por login + 2fa "}
 
@@ -322,7 +330,7 @@ body : { "name": "Universidad", "category": "sdf1q42143kn"}
 ```
 return: 200
 
-## PUT to https://keypax-api.hotpo.org/private/info
+## 12: PUT to https://keypax-api.hotpo.org/private/info
 
 **headers**: {accessToken: "token de acceso expedido por login + 2fa "}
 
