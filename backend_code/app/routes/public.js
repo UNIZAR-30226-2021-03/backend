@@ -13,7 +13,6 @@ router.get('/', (req,res) => {
     ).status(200)
 })
 
-
 router.post('/login', auth.LogIn);
 
 router.post('/signup',auth.SingUp);
