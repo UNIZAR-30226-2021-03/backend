@@ -17,7 +17,7 @@ services:
     environment:
       - CERTBOT_EMAIL=barbarosoft@gmail.com
     volumes:
-      - nginx_secrets:/etc/letsencrypt
+      - nginx_secrets:/etc/https
     ports:
       - "80:80"
       - "443:443"
