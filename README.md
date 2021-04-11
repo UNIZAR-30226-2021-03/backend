@@ -1,6 +1,6 @@
 # BACKEND
 
-## 1: POST to https://keypax-api.hotpo.org/public/signup 
+## 1: POST to https://keypax-api.sytes.net/public/signup 
 
 **headers**: none
 
@@ -27,7 +27,7 @@
 - Campo password debe ser string simple.
 
 **example**:
-https://keypax-api.hotpo.org/public/signup 
+https://keypax-api.sytes.net/public/signup 
 ```
 body: { 
     "email":"barbara@gmail.com", 
@@ -37,7 +37,7 @@ body: {
 ```
 return: 200
 
-## 2: POST to https://keypax-api.hotpo.org/public/login
+## 2: POST to https://keypax-api.sytes.net/public/login
 
 **headers**: none
 
@@ -63,7 +63,7 @@ return: 200
 - Campo password debe ser string simple.
 
 **example**:
-https://keypax-api.hotpo.org/public/login 
+https://keypax-api.sytes.net/public/login 
 
 ```
 body: { 
@@ -77,7 +77,7 @@ return: 200
 ```
 
 
-## 3: GET to https://keypax-api.hotpo.org/public/verify/:token
+## 3: GET to https://keypax-api.sytes.net/public/verify/:token
 
 **headers**: none
 
@@ -90,9 +90,9 @@ return: 200
 - Status code 200: token correcto, verifica el email del usuario. 
 
 **example**: 
-https://keypax-api.hotpo.org/public/verify/eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MDY4MmFkZDc3ZjNhYjkxZTgyYzY0YzciLCJpYXQiOjE2MTc0NDIzMjIsImV4cCI6MTYxNzQ0MzIyMn0.50LBHkmr6laRUAeC5Yp-Ab3kHL9N765Eo8Gy1oV-gus
+https://keypax-api.sytes.net/public/verify/eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MDY4MmFkZDc3ZjNhYjkxZTgyYzY0YzciLCJpYXQiOjE2MTc0NDIzMjIsImV4cCI6MTYxNzQ0MzIyMn0.50LBHkmr6laRUAeC5Yp-Ab3kHL9N765Eo8Gy1oV-gus
 
-## 4: POST to https://keypax-api.hotpo.org/public/2fa
+## 4: POST to https://keypax-api.sytes.net/public/2fa
 
 **headers**: none
 
@@ -105,7 +105,7 @@ https://keypax-api.hotpo.org/public/verify/eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.
 
 **example**:
 
-url: https://keypax-api.hotpo.org/public/2fa
+url: https://keypax-api.sytes.net/public/2fa
 
 body: { "_2faToken":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MDY4MmFkZDc3ZjNhYjkxZTgyYzY0YzciLCJpYXQiOjE2MTc0NDIzMjIsImV4cCI6MTYxNzQ0MzIyMn0.50LBHkmr6laRUAeC5Yp-Ab3kHL9N765Eo8Gy1oV-gus", "code":"585649" }
 
@@ -114,7 +114,7 @@ return: 200
  { accessToken: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MDY4MmFkZDc3ZjNhYjkxZTgyYzY0YzciLCJpYXQiOjE2MTc0Mzk0NTMsImV4cCI6MTYxNzQ0MDM1M30.67xl3NatXWMiqIf6LSLi-m0l8MBVzr_aQJ-XSanxgo0"}
 ```
 
-## 5: POST to https://keypax-api.hotpo.org/private/category
+## 5: POST to https://keypax-api.sytes.net/private/category
 
 **headers**: {accessToken: "token de acceso expedido por login + 2fa "}
 
@@ -136,7 +136,7 @@ return: 200
 
 headers: {accessToken: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MDY4MmFkZDc3ZjNhYjkxZTgyYzY0YzciLCJpYXQiOjE2MTc0Mzk0NTMsImV4cCI6MTYxNzQ0MDM1M30.67xl3NatXWMiqIf6LSLi-m0l8MBVzr_aQJ-XSanxgo0"}
 
-url: https://keypax-api.hotpo.org/private/category
+url: https://keypax-api.sytes.net/private/category
 
 ```
 body : { "name": "Universidad"}
@@ -144,7 +144,7 @@ body : { "name": "Universidad"}
 return: 200
 
 
-## 6: POST to https://keypax-api.hotpo.org/private/info
+## 6: POST to https://keypax-api.sytes.net/private/info
 
 **headers**: {accessToken: "token de acceso expedido por login + 2fa "}
 
@@ -173,7 +173,7 @@ return: 200
 
 headers: {accessToken: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MDY4MmFkZDc3ZjNhYjkxZTgyYzY0YzciLCJpYXQiOjE2MTc0Mzk0NTMsImV4cCI6MTYxNzQ0MDM1M30.67xl3NatXWMiqIf6LSLi-m0l8MBVzr_aQJ-XSanxgo0"}
 
-url: https://keypax-api.hotpo.org/private/info
+url: https://keypax-api.sytes.net/private/info
 ```
 body : { 
     "name" : "Contraseña info"
@@ -187,7 +187,7 @@ body : {
 return: 200
 
 
-## 7: DELETE to https://keypax-api.hotpo.org/private/category
+## 7: DELETE to https://keypax-api.sytes.net/private/category
 
 **headers**: {accessToken: "token de acceso expedido por login + 2fa "}
 
@@ -204,9 +204,9 @@ return: 200
 
 headers: {accessToken: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MDY4MmFkZDc3ZjNhYjkxZTgyYzY0YzciLCJpYXQiOjE2MTc0Mzk0NTMsImV4cCI6MTYxNzQ0MDM1M30.67xl3NatXWMiqIf6LSLi-m0l8MBVzr_aQJ-XSanxgo0"}
 
-url:  https://keypax-api.hotpo.org/private/category/?category_id=1ef1134fdacb1
+url:  https://keypax-api.sytes.net/private/category/?category_id=1ef1134fdacb1
 
-## 8: DELETE to https://keypax-api.hotpo.org/private/info
+## 8: DELETE to https://keypax-api.sytes.net/private/info
 
 **headers**: {accessToken: "token de acceso expedido por login + 2fa "}
 
@@ -223,9 +223,9 @@ url:  https://keypax-api.hotpo.org/private/category/?category_id=1ef1134fdacb1
 
 headers: {accessToken: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MDY4MmFkZDc3ZjNhYjkxZTgyYzY0YzciLCJpYXQiOjE2MTc0Mzk0NTMsImV4cCI6MTYxNzQ0MDM1M30.67xl3NatXWMiqIf6LSLi-m0l8MBVzr_aQJ-XSanxgo0"}
 
-url:  https://keypax-api.hotpo.org/private/category/?info_id=1fb25ywef&category_id=1ef1134fdacb1
+url:  https://keypax-api.sytes.net/private/category/?info_id=1fb25ywef&category_id=1ef1134fdacb1
 
-## 9: GET to https://keypax-api.hotpo.org/private/categories
+## 9: GET to https://keypax-api.sytes.net/private/categories
 
 **headers**: {accessToken: "token de acceso expedido por login + 2fa "}
 
@@ -239,7 +239,7 @@ url:  https://keypax-api.hotpo.org/private/category/?info_id=1fb25ywef&category_
 
 headers: {accessToken: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MDY4MmFkZDc3ZjNhYjkxZTgyYzY0YzciLCJpYXQiOjE2MTc0Mzk0NTMsImV4cCI6MTYxNzQ0MDM1M30.67xl3NatXWMiqIf6LSLi-m0l8MBVzr_aQJ-XSanxgo0"}
 
-url:  https://keypax-api.hotpo.org/private/categories
+url:  https://keypax-api.sytes.net/private/categories
 ```
 [
     {
@@ -256,7 +256,7 @@ url:  https://keypax-api.hotpo.org/private/categories
     }
 ]
 ```
-## 10: GET to https://keypax-api.hotpo.org/private/infos
+## 10: GET to https://keypax-api.sytes.net/private/infos
 
 **headers**: {accessToken: "token de acceso expedido por login + 2fa "}
 
@@ -272,7 +272,7 @@ url:  https://keypax-api.hotpo.org/private/categories
 
 headers: {accessToken: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MDY4MmFkZDc3ZjNhYjkxZTgyYzY0YzciLCJpYXQiOjE2MTc0Mzk0NTMsImV4cCI6MTYxNzQ0MDM1M30.67xl3NatXWMiqIf6LSLi-m0l8MBVzr_aQJ-XSanxgo0"}
 
-url: https://keypax-api.hotpo.org/private/infos/?category_id=6638380ccb63284dfa78089b
+url: https://keypax-api.sytes.net/private/infos/?category_id=6638380ccb63284dfa78089b
 
 ```
 [
@@ -305,7 +305,7 @@ url: https://keypax-api.hotpo.org/private/infos/?category_id=6638380ccb63284dfa7
 
 ```
 
-## 11: PUT to https://keypax-api.hotpo.org/private/category
+## 11: PUT to https://keypax-api.sytes.net/private/category
 
 **headers**: {accessToken: "token de acceso expedido por login + 2fa "}
 
@@ -328,14 +328,14 @@ url: https://keypax-api.hotpo.org/private/infos/?category_id=6638380ccb63284dfa7
 
 headers: {accessToken: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MDY4MmFkZDc3ZjNhYjkxZTgyYzY0YzciLCJpYXQiOjE2MTc0Mzk0NTMsImV4cCI6MTYxNzQ0MDM1M30.67xl3NatXWMiqIf6LSLi-m0l8MBVzr_aQJ-XSanxgo0"}
 
-url: https://keypax-api.hotpo.org/private/category
+url: https://keypax-api.sytes.net/private/category
 
 ```
 body : { "name": "Universidad", "category": "sdf1q42143kn"}
 ```
 return: 200
 
-## 12: PUT to https://keypax-api.hotpo.org/private/info
+## 12: PUT to https://keypax-api.sytes.net/private/info
 
 **headers**: {accessToken: "token de acceso expedido por login + 2fa "}
 
@@ -362,7 +362,7 @@ return: 200
 
 headers: {accessToken: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MDY4MmFkZDc3ZjNhYjkxZTgyYzY0YzciLCJpYXQiOjE2MTc0Mzk0NTMsImV4cCI6MTYxNzQ0MDM1M30.67xl3NatXWMiqIf6LSLi-m0l8MBVzr_aQJ-XSanxgo0"}
 
-url: https://keypax-api.hotpo.org/private/info
+url: https://keypax-api.sytes.net/private/info
 ```
 body : { 
     "username": "andoni", 
