@@ -45,7 +45,7 @@ const CreateInfo = async(req,res) => {
 
     try{       
         const user_id = req.token._id; 
-        const {username, password, url, description, category_id} = req.body;
+        const {name, username, password, url, description, category_id} = req.body;
         let key = await User.getPassword(user_id);
 
         key = crypto.createHash('sha256').update(String(key)).digest('base64').substr(0, 32);
@@ -56,7 +56,7 @@ const CreateInfo = async(req,res) => {
         const str2 = encrypted.toString('hex');
         encrypted = str.concat("-").concat(str2);
         
-        const ok = await Info.createInfo(user_id,category_id,username,encrypted,url,description)
+        const ok = await Info.createInfo(user_id,category_id,name,username,encrypted,url,description)
         
         if(ok){
             return res.status(200).end()
@@ -96,7 +96,7 @@ const UpdateInfo = async(req,res) => {
     try{       
         const user_id = req.token._id; 
         
-        const {username, password, url, description, category_id, info_id} = req.body;
+        const {name, username, password, url, description, category_id, info_id} = req.body;
         let encrypted=undefined
         if(password !== undefined){
             let key = await User.getPassword(user_id);
@@ -110,7 +110,7 @@ const UpdateInfo = async(req,res) => {
             encrypted = str.concat("-").concat(str2);
         }
         
-        const ok = await Info.updateInfo(user_id,category_id,info_id,username,encrypted,url,description)
+        const ok = await Info.updateInfo(user_id,category_id,info_id,name,username,encrypted,url,description)
         
         if(ok){
             return res.status(200).end()

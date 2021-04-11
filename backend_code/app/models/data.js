@@ -24,7 +24,11 @@ const Data = new Schema({
                 required: true
             },
             info: [
-                {
+                {   
+                    name: {
+                        type: String,
+                        required: true
+                    },
                     username:{
                         type: String,
                         required: true

@@ -16,8 +16,9 @@ const getInfos = async(id) => {
     return res.category[0].info;
 }
 
-const createInfo = async(user_id,category_id,username,password,url,description) => {
+const createInfo = async(user_id,category_id,name,username,password,url,description) => {
     const info = {
+        name: name,
         username: username,
         password: password,
         url: url,
@@ -50,12 +51,14 @@ const deleteInfo = async(user_id,category_id,info_id) => {
     return res.n === 1;
 }
 
-const updateInfo = async(user_id,category_id,info_id,username,password,url,description) => {
+const updateInfo = async(user_id,category_id,info_id,name,username,password,url,description) => {
     const info = {
+        name: name,
         username: username,
         password: password,
         url: url,
-        description: description
+        description: description,
+        creation_date: Date.now()
     }
     const res = await Data.updateOne(
         {

@@ -94,7 +94,7 @@ const Verify = async(req,res) => {
         const verified = jwt.verify(token,config.VERIFICATION_TOKEN);
         if(verified){
             User.updateVerify(verified._id);
-            return res.status(200).end();
+            return res.status(200).render('index');
         }
         return res.status(401).end();
     }catch(err){
