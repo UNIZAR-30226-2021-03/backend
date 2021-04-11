@@ -25,7 +25,7 @@ mongoose.connection.once('open', () => {
 
 app.set('port', config.PORT)
 app.set('view engine', 'pug');
-app.set("templates", path.join(__dirname,"app","templates"));
+app.set('views', path.join(__dirname,'app','templates'));
 
 app.use(cors())
 app.use(morgan('dev'))
