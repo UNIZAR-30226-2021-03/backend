@@ -2,10 +2,10 @@ const express = require('express')
 const morgan = require('morgan')
 const cors = require('cors')
 const path = require('path');
-const Grid = require('gridfs-stream');
-const GridFsStorage = require('multer-gridfs-storage');
-const multer = require('multer');
-const crypto = require('crypto');
+//const Grid = require('gridfs-stream');
+//const GridFsStorage = require('multer-gridfs-storage');
+//const multer = require('multer');
+//const crypto = require('crypto');
 const app = express()
 
 const mongoose = require('mongoose')
@@ -16,7 +16,7 @@ const {authValidation} = require('./app/middleware/auth.middleware')
 const config = require('./app/config');
 
 
-let gfs;
+//let gfs;
 
 const conn = mongoose.createConnection(config.DB_CONN,
 {
@@ -27,11 +27,12 @@ const conn = mongoose.createConnection(config.DB_CONN,
 
 conn.once('open', () => {
     console.log("DB CONNECTED")
-    gfs = Grid(conn.db, mongoose.mongo);
-    gfs.collection('uploads');
+    //gfs = Grid(conn.db, mongoose.mongo);
+    //gfs.collection('uploads');
     
 })
 
+/*
 const storage = new GridFsStorage({
     url: config.DB_CONN,
     file: (req, file) => {
@@ -54,17 +55,6 @@ const storage = new GridFsStorage({
  
  
 const upload = multer({ storage }); 
-
-
-app.set('port', config.PORT)
-app.set('view engine', 'pug');
-app.set('views', path.join(__dirname,'app','templates'));
-
-app.use(cors())
-app.use(morgan('dev'))
-app.use(express.json())
-app.use('/public', public)
-app.use('/private',authValidation,private)
 
 //TODO: change cause decapred, poner en modulo aparte
 app.post('/upload', upload.single('file'), (req, res) => {
@@ -128,7 +118,17 @@ app.get('/image/:filename', (req, res) => {
       }
     });
 });
+*/
 
+app.set('port', config.PORT)
+app.set('view engine', 'pug');
+app.set('views', path.join(__dirname,'app','templates'));
+
+app.use(cors())
+app.use(morgan('dev'))
+app.use(express.json())
+app.use('/public', public)
+app.use('/private',authValidation,private)
 
 app.listen(app.get('port'), () => {
     console.log('App connected', app.get('port'))
