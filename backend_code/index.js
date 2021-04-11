@@ -18,6 +18,7 @@ const config = require('./app/config');
 
 //let gfs;
 
+/*
 const conn = mongoose.createConnection(config.DB_CONN,
 {
     useNewUrlParser: true,
@@ -30,8 +31,19 @@ conn.once('open', () => {
     //gfs = Grid(conn.db, mongoose.mongo);
     //gfs.collection('uploads');
     
-})
+})*/
 
+mongoose.connect(config.DB_CONN,
+{
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+    useFindAndModify:false
+})
+  
+mongoose.connection.once('open', () => {
+    console.log("DB CONNECTED")
+})
+  
 /*
 const storage = new GridFsStorage({
     url: config.DB_CONN,
