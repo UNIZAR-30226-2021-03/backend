@@ -66,7 +66,7 @@ app.use(express.json())
 app.use('/public', public)
 app.use('/private',authValidation,private)
 
-
+//TODO: change cause decapred, poner en modulo aparte
 app.post('/upload', upload.single('file'), (req, res) => {
     gfs.files.find().toArray((err, files) => {
         if (!files || files.length === 0) {
