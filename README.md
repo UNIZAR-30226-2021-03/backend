@@ -149,13 +149,14 @@ return: 200
 **headers**: {accessToken: "token de acceso expedido por login + 2fa "}
 
 **body**: 
-{ "username": "usuario asociado a la contraseña",
+{ "name": "nombre del registro de contraseña", "username": "usuario asociado a la contraseña",
 "password": "contraseña a cifrar", "url": "link del sitio asociado", "description": "descripción de la contraseña", "category_id": "id de la categoría a la que pertenece"}
 
 
 **query**: none
 
-**requirements**: 
+**requirements**:
+- name string 
 - username string
 - password string
 - url es una uri
@@ -175,6 +176,7 @@ headers: {accessToken: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MDY4MmF
 url: https://keypax-api.hotpo.org/private/info
 ```
 body : { 
+    "name" : "Contraseña info"
     "username": "andoni", 
     "password": "1234", 
     "url":"http://facebook.com", 
@@ -277,6 +279,7 @@ url: https://keypax-api.hotpo.org/private/infos/?category_id=6638380ccb63284dfa7
     {
         "creation_date": "2021-03-30T14:19:08.113Z",
         "_id": "6063335ed261271f1c5a590a",
+        "name": "uno",
         "username": "barabara1",
         "password": "contraseña12245",
         "url": "http://hotmail.com"
@@ -284,6 +287,7 @@ url: https://keypax-api.hotpo.org/private/infos/?category_id=6638380ccb63284dfa7
     {
         "creation_date": "2021-03-30T14:22:11.618Z",
         "_id": "60633416fce6f11fdc313221",
+        "name": "uno",
         "username": "usuario",
         "password": "1234",
         "url": "http://facebook.com"
@@ -291,6 +295,7 @@ url: https://keypax-api.hotpo.org/private/infos/?category_id=6638380ccb63284dfa7
     {
         "creation_date": "2021-03-30T18:51:56.150Z",
         "_id": "6063737972ec7e12b30361ea",
+        "name": "uno",
         "username": "miusuario",
         "password": "password",
         "url": "https://gmail.com",
@@ -334,7 +339,7 @@ return: 200
 
 **headers**: {accessToken: "token de acceso expedido por login + 2fa "}
 
-**body**: { "username": "usuario asociado a la contraseña",
+**body**: { "name": "nombre del registro de contraseña", "usuario asociado a la contraseña",
 "password": "contraseña a cifrar", "url": "link del sitio asociado", "description": "descripción de la contraseña", "category_id": "id de la categoría a la que pertenece la info a actualizar", "info_id":"id de la info a actualizar"}
 
 (Si no se indica uno de los campos, no se actualiza)

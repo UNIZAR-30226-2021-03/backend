@@ -9,6 +9,7 @@ const public = require('./app/routes/public')
 const private = require('./app/routes/private')
 const {authValidation} = require('./app/middleware/auth.middleware')
 const config = require('./app/config');
+const path = require('path');
 
 mongoose.connect(config.DB_CONN,
 {
