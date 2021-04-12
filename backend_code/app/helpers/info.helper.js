@@ -1,4 +1,6 @@
 const Data = require('../models/data')
+
+const File = require('./file.helper')
 const mongoose = require('mongoose')
 
 const getInfos = async(id) => {
@@ -16,13 +18,23 @@ const getInfos = async(id) => {
     return res.category[0].info;
 }
 
-const createInfo = async(user_id,category_id,name,username,password,url,description) => {
+const createInfo = async(user_id,category_id,name,username,password,url,description,busboy) => {
+    if (busboy){
+        const {ok,name,file_id} = await File.uploadFile(busboy)
+        if(!ok){
+            return ok;
+        }
+    }
     const info = {
         name: name,
         username: username,
         password: password,
         url: url,
-        description: description
+        description: description,
+        file: {
+            name: name,
+            file_id : file_id
+        } 
     }
     const res = await Data.updateOne(
         {
@@ -37,6 +49,17 @@ const createInfo = async(user_id,category_id,name,username,password,url,descript
 }
 
 const deleteInfo = async(user_id,category_id,info_id) => {
+    const infos = await getInfos(category_id)
+    infos.forEach((info)=>{
+        if(info._id === info_id){
+            if(info.file._id){
+                const ok = File.deleteFile(info.file._id)
+                if(!ok){
+                    return ok
+                }
+            }
+        }
+    })
     const res = await Data.updateOne(
         {
             _id : mongoose.Types.ObjectId(user_id), category: { 
@@ -47,7 +70,7 @@ const deleteInfo = async(user_id,category_id,info_id) => {
         },
         { $pull: { "category.$.info": { _id: mongoose.Types.ObjectId(info_id) }}
     });
-
+    
     return res.n === 1;
 }
 
