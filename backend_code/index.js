@@ -2,10 +2,6 @@ const express = require('express')
 const morgan = require('morgan')
 const cors = require('cors')
 const path = require('path');
-//const Grid = require('gridfs-stream');
-//const GridFsStorage = require('multer-gridfs-storage');
-//const multer = require('multer');
-//const crypto = require('crypto');
 const app = express()
 
 const mongoose = require('mongoose')
@@ -16,35 +12,29 @@ const {authValidation} = require('./app/middleware/auth.middleware')
 const config = require('./app/config');
 
 
-//let gfs;
+const Grid = require('gridfs-stream');
+const GridFsStorage = require('multer-gridfs-storage');
+const multer = require('multer');
+const crypto = require('crypto');
 
-/*
-const conn = mongoose.createConnection(config.DB_CONN,
-{
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-    useFindAndModify:false
-})
 
-conn.once('open', () => {
-    console.log("DB CONNECTED")
-    //gfs = Grid(conn.db, mongoose.mongo);
-    //gfs.collection('uploads');
-    
-})*/
+let gfs;
 
 mongoose.connect(config.DB_CONN,
-{
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-    useFindAndModify:false
-})
+  {
+      useNewUrlParser: true,
+      useUnifiedTopology: true,
+      useFindAndModify:false
+  })
+    
+  mongoose.connection.once('open', () => {
+      console.log("DB CONNECTED")
+      gfs = Grid(mongoose.connection.db, mongoose.mongo);
+      gfs.collection('uploads');
+  })
+
   
-mongoose.connection.once('open', () => {
-    console.log("DB CONNECTED")
-})
-  
-/*
+
 const storage = new GridFsStorage({
     url: config.DB_CONN,
     file: (req, file) => {
@@ -130,7 +120,7 @@ app.get('/image/:filename', (req, res) => {
       }
     });
 });
-*/
+
 
 app.set('port', config.PORT)
 app.set('view engine', 'pug');
