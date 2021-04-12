@@ -44,7 +44,8 @@ const Data = new Schema({
                         default: Date.now()
                     },
                     file: {
-                        type: ObjectId
+                        name: String,
+                        file_id: String
                     }
                 }
             ]

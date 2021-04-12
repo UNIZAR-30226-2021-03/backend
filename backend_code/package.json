@@ -18,6 +18,7 @@
   "homepage": "https://github.com/UNIZAR-30226-2021-03/backend#readme",
   "dependencies": {
     "bcryptjs": "^2.4.3",
+    "connect-busboy": "^0.0.2",
     "cors": "^2.8.5",
     "crypto": "^1.0.1",
     "express": "^4.17.1",
