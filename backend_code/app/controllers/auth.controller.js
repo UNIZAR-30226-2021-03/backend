@@ -40,7 +40,7 @@ const SingUp = async(req,res) => {
             return res.status(501).end();
         }
 
-        return res.status(200).end();
+        return res.status(200).send({});
 
     }catch(err){
         return res.status(500).send(err);
