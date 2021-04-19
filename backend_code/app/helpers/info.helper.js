@@ -33,7 +33,7 @@ const createInfo = async(user_id,category_id,name,username,password,url,descript
             }
         },
         { $push: { "category.$.info": info} })
-    return res.n === 1;
+    return res.nModified === 1;
 }
 
 const deleteInfo = async(user_id,category_id,info_id) => {
@@ -48,7 +48,7 @@ const deleteInfo = async(user_id,category_id,info_id) => {
         { $pull: { "category.$.info": { _id: mongoose.Types.ObjectId(info_id) }}
     });
 
-    return res.n === 1;
+    return res.nModified === 1;
 }
 
 const updateInfo = async(user_id,category_id,info_id,name,username,password,url,description) => {
@@ -76,7 +76,7 @@ const updateInfo = async(user_id,category_id,info_id,name,username,password,url,
         }
     );
 
-    return res.n === 1;
+    return res.nModified === 1;
 }
 
 

@@ -20,7 +20,7 @@ const createCategory = async(id,name) => {
     }
     
     const res = await Data.updateOne({_id:id},{$push : { category: category}})
-    return res.n === 1;
+    return res.nModified === 1;
 }
 
 const deleteCategory = async(user_id,category_id) => {
@@ -29,7 +29,7 @@ const deleteCategory = async(user_id,category_id) => {
             category: { _id: category_id }
         }
     });
-    return res.n === 1;
+    return res.nModified === 1;
 }
 
 const checkCategory = async(user_id,category_id) => {
@@ -66,7 +66,7 @@ const updateCategory = async(user_id,category_id,name) => {
             }
         }
     )
-    return res.n === 1;
+    return res.nModified === 1;
 }
 
 module.exports = {createCategory,getCategories,deleteCategory,checkCategory,updateCategory}
