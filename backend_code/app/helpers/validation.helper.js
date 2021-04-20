@@ -23,6 +23,7 @@ const categorySchema = Joi.object().keys(
 
 const infoSchema = Joi.object().keys(
     {
+        name: Joi.string().max(50).required(),
         username: Joi.string().required(),
         password: Joi.string().required(),              
         category_id: Joi.string().required(),
