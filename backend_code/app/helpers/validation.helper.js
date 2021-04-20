@@ -34,6 +34,7 @@ const infoSchema = Joi.object().keys(
 
 const infoUpdateSchema = Joi.object().keys(
     {
+        name: Joi.string().max(50),
         username: Joi.string(),
         password: Joi.string(),            
         category_id: Joi.string().required(),
