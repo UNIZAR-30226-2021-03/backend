@@ -83,13 +83,19 @@ const updateInfo = async(user_id,category_id,info_id,name,username,password,url,
         description: description,
         creation_date: Date.now()
     }
+    var update ={}
+    Object.entries(info).forEach(([key,value])=>{
+        if(value !== undefined){
+            update["category.$[i].info.$[j]."+key]=value;
+        }
+    })
     const res = await Data.updateOne(
         {
             _id : mongoose.Types.ObjectId(user_id)
         },
-        { $set: { 
+        { $set: update /*{ 
             "category.$[i].info.$[j]": info 
-            }
+            }*/
         },
         {
             arrayFilters: [
@@ -99,7 +105,7 @@ const updateInfo = async(user_id,category_id,info_id,name,username,password,url,
         }
     );
 
-    return res.nModified === 1;
+    return res.nModified >= 1;
 }
 
 
