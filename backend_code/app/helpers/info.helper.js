@@ -33,7 +33,7 @@ const createInfo = async(user_id,category_id,name,username,password,url,descript
             }
         },
         { $push: { "category.$.info": info} })
-    return res.nModified === 1;
+    return res.nModified >= 1;
 }
 
 const deleteInfo = async(user_id,category_id,info_id) => {
@@ -48,7 +48,7 @@ const deleteInfo = async(user_id,category_id,info_id) => {
         { $pull: { "category.$.info": { _id: mongoose.Types.ObjectId(info_id) }}
     });
 
-    return res.nModified === 1;
+    return res.nModified >= 1;
 }
 
 const updateInfo = async(user_id,category_id,info_id,name,username,password,url,description) => {
@@ -60,13 +60,21 @@ const updateInfo = async(user_id,category_id,info_id,name,username,password,url,
         description: description,
         creation_date: Date.now()
     }
+    //console.log(info);
+    var update = {}
+    Object.entries(info).forEach(([key, value]) => {
+        if (value !== undefined){
+            update["category.$[i].info.$[j]."+key] = value;
+        }
+    });
+    //console.log(update);
     const res = await Data.updateOne(
         {
             _id : mongoose.Types.ObjectId(user_id)
         },
-        { $set: { 
-            "category.$[i].info.$[j]": info 
-            }
+        { $set: update //{ 
+            //"category.$[i].info.$[j]": info
+            //}
         },
         {
             arrayFilters: [
@@ -75,8 +83,9 @@ const updateInfo = async(user_id,category_id,info_id,name,username,password,url,
             ]
         }
     );
+    //console.log(res);
 
-    return res.nModified === 1;
+    return res.nModified >= 1;
 }
 
 

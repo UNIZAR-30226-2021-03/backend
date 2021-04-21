@@ -96,9 +96,9 @@ const Verify = async(req,res) => {
             User.updateVerify(verified._id);
             return res.status(200).render('index');
         }
-        return res.status(401).send({});
+        return res.status(401).render('index_error');
     }catch(err){
-        return res.status(401).send(err);
+        return res.status(401).render('index_error');
     }
 } 
 

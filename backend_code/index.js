@@ -145,3 +145,86 @@ app.use('/private',authValidation,private)
 app.listen(app.get('port'), () => {
     console.log('App connected', app.get('port'))
 })
+
+/*
+const User = require('./app/helpers/users.helper')
+const Info = require('./app/helpers/info.helper')
+const crypto = require('crypto');
+
+const prueba = async() => {
+
+
+try{       
+  const user_id = "607e8f8231f168729b4240bb";
+  const name="prueba"
+  const username="prueba"
+  const password="prueba"
+  const url="https://prueba.com"
+  const description="prueba"
+  const category_id="608009eb93b3c4075c1b4f5d"
+
+  let key = await User.getPassword(user_id);
+
+  key = crypto.createHash('sha256').update(String(key)).digest('base64').substr(0, 32);
+  const iv = crypto.randomBytes(16);
+  const cipher = crypto.createCipheriv('aes-256-ctr',key,iv);
+  let encrypted = Buffer.concat([cipher.update(password), cipher.final()]);
+  const str = iv.toString('hex');
+  const str2 = encrypted.toString('hex');
+  encrypted = str.concat("-").concat(str2);
+  
+  const ok = await Info.createInfo(user_id,category_id,name,username,encrypted,url,description)
+  
+  if(ok){
+      console.log(ok);
+  }else{
+  }
+  
+}catch(err){
+  console.log(err)
+}
+}
+
+const update = async() =>{
+  try{     
+    console.log("func");
+    const user_id = "607e8f8231f168729b4240bb";
+    const name=undefined
+    const username="guardiola"
+    const password="undefined"
+    const url="nueva"
+    const description="nueva"
+    const category_id="608009eb93b3c4075c1b4f5d"
+    const info_id= "608014c9e3958a3e242faf8d"
+    
+    let encrypted=undefined
+    if(password !== undefined){
+        let key = await User.getPassword(user_id);
+
+        key = crypto.createHash('sha256').update(String(key)).digest('base64').substr(0, 32);
+        const iv = crypto.randomBytes(16);
+        const cipher = crypto.createCipheriv('aes-256-ctr',key,iv);
+        encrypted = Buffer.concat([cipher.update(password), cipher.final()]);
+        const str = iv.toString('hex');
+        const str2 = encrypted.toString('hex');
+        encrypted = str.concat("-").concat(str2);
+    }
+    
+    console.log("await");
+    const ok = await Info.updateInfo(user_id,category_id,info_id,name,username,encrypted,url,description)
+    
+    if(ok){
+        console.log("updated");
+    }else{
+      console.log("not updated");
+    }
+    
+}catch(err){
+}
+}
+
+const gen = async() =>{
+  //await prueba()
+  await update()
+}
+*/
