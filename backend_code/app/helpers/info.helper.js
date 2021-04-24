@@ -59,7 +59,11 @@ const deleteInfo = async(user_id,category_id,info_id) => {
         },
         { $pull: { "category.$.info": { _id: mongoose.Types.ObjectId(info_id) }}
     });
+<<<<<<< HEAD
     
+=======
+
+>>>>>>> 51e1de29b7e749daad0af10937ad3637f1d36b33
     return res.nModified >= 1;
 }
 
@@ -72,19 +76,36 @@ const updateInfo = async(user_id,category_id,info_id,name,username,password,url,
         description: description,
         creation_date: Date.now()
     }
+<<<<<<< HEAD
     var update ={}
     Object.entries(info).forEach(([key,value])=>{
         if(value !== undefined){
             update["category.$[i].info.$[j]."+key]=value;
         }
     })
+=======
+    //console.log(info);
+    var update = {}
+    Object.entries(info).forEach(([key, value]) => {
+        if (value !== undefined){
+            update["category.$[i].info.$[j]."+key] = value;
+        }
+    });
+    //console.log(update);
+>>>>>>> 51e1de29b7e749daad0af10937ad3637f1d36b33
     const res = await Data.updateOne(
         {
             _id : mongoose.Types.ObjectId(user_id)
         },
+<<<<<<< HEAD
         { $set: update /*{ 
             "category.$[i].info.$[j]": info 
             }*/
+=======
+        { $set: update //{ 
+            //"category.$[i].info.$[j]": info
+            //}
+>>>>>>> 51e1de29b7e749daad0af10937ad3637f1d36b33
         },
         {
             arrayFilters: [
@@ -93,6 +114,7 @@ const updateInfo = async(user_id,category_id,info_id,name,username,password,url,
             ]
         }
     );
+    //console.log(res);
 
     return res.nModified >= 1;
 }

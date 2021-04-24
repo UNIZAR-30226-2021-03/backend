@@ -8,7 +8,11 @@ services:
     environment:
       - ACCESS_TOKEN=${access_token}
       - VERIFICATION_TOKEN=${verification_token}
+<<<<<<< HEAD
       - DB_CONN=mongodb+srv://KeyPaXAdmin:${password}@cluster0.yyh5k.mongodb.net/KeyPax?retryWrites=true&w=majority
+=======
+      - DB_CONN=mongodb+srv://KeyPaXAdmin:${password}@cluster0.yyh5k.mongodb.net/myFirstDatabase?retryWrites=true&w=majority
+>>>>>>> 51e1de29b7e749daad0af10937ad3637f1d36b33
       - PORT=8080
       - USER_EMAIL=${email}
       - USER_PASSWORD=${password}

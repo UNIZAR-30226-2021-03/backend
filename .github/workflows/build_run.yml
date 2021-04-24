@@ -43,29 +43,32 @@ jobs:
         registry: ghcr.io
         username: ${{ github.repository_owner }}
         password: ${{ secrets.KEYPAX_PAT }} 
-    - name: Build and Push BE-container         #IMAGEN DE CONTENEDOR DE BASE DE DATOS
+    - name: Build and Push BE-container         #IMAGEN DE CONTENEDOR DE BACKEND
       uses: docker/build-push-action@v2
       with:
         file: ./Dockerfile
         platforms: linux/amd64
         push: true
         tags: ${{ steps.prep.outputs.tagbe }}
-    - name: Build and Push nx                   #IMAGEN DE CONTENEDOR DE NGINX
-      uses: docker/build-push-action@v2
-      with:
-        file: ./nginx/Dockerfile
-        platforms: linux/amd64
-        push: true
-        tags: ${{ steps.prep.outputs.tagnx }}
+    #- name: Build and Push nx                   #IMAGEN DE CONTENEDOR DE NGINX
+    #  uses: docker/build-push-action@v2
+    #  with:
+    #    file: ./nginx/Dockerfile
+    #    platforms: linux/amd64
+    #    push: true
+    #    tags: ${{ steps.prep.outputs.tagnx }}
     - name: SSH into Server and run             #Mediante Secrets conecta a server y arranca back
       uses: fifsky/ssh-action@master
       with:
         args: "-tt"
         command: |
-          sudo systemctl start noip2.service
           mkdir -p "backend-app" && cd $_ 
           curl -L https://raw.githubusercontent.com/UNIZAR-30226-2021-03/backend/main/deployment/docker-compose.yml > template.yml
+<<<<<<< HEAD
           echo -e "s/\${email}/${{ secrets.EMAIL }}/\ns/\${password}/${{ secrets.EMAIL_PASSWORD }}/\ns/\${access_token}/${{ secrets.BACKEND_ACCESS_TOKEN }}/\ns/\${verification_token}/${{ secrets.BACKEND_VERIFICATION_TOKEN }}/\ns/\${master_salt}/${{ secrets.MASTER_SALT }}/" > /tmp/replace.txt
+=======
+          echo -e "s/\${email}/${{ secrets.EMAIL }}/\ns/\${password}/${{ secrets.EMAIL_PASSWORD }}/\ns/\${access_token}/${{ secrets.BACKEND_ACCESS_TOKEN }}/\ns/\${verification_token}/${{ secrets.BACKEND_VERIFICATION_TOKEN }}/" > /tmp/replace.txt
+>>>>>>> 51e1de29b7e749daad0af10937ad3637f1d36b33
           sed -f /tmp/replace.txt ./template.yml > docker-compose.yml
           curl -L https://raw.githubusercontent.com/UNIZAR-30226-2021-03/backend/main/deployment/start.sh > start.sh
           chmod u+x start.sh
