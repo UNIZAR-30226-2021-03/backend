@@ -28,7 +28,7 @@ const GetInfos = async(req,res) => {
             return res.status(200).send(infos);
         }else{
             
-            return res.status(404).end()
+            return res.status(404).send({})
         }
         
     }catch(err){
@@ -40,13 +40,12 @@ const GetInfos = async(req,res) => {
 const CreateInfo = async(req,res) => {
     
     if(!infoValidation(req.body)){
-        return res.status(400).end();
+        return res.status(400).send({});
     }
 
     try{       
         const user_id = req.token._id; 
         const {name, username, password, url, description, category_id} = req.body;
-        const busboy=req.busboy;
         let key = await User.getPassword(user_id);
 
         key = crypto.createHash('sha256').update(String(key)).digest('base64').substr(0, 32);
@@ -57,12 +56,12 @@ const CreateInfo = async(req,res) => {
         const str2 = encrypted.toString('hex');
         encrypted = str.concat("-").concat(str2);
         
-        const ok = await Info.createInfo(user_id,category_id,name,username,encrypted,url,description,busboy)
+        const ok = await Info.createInfo(user_id,category_id,name,username,encrypted,url,description)
         
         if(ok){
-            return res.status(200).end()
+            return res.status(200).send({})
         }else{
-            return res.status(400).end()
+            return res.status(409).send({})
         }
         
     }catch(err){
@@ -78,9 +77,9 @@ const DeleteInfo = async(req,res) => {
         const info_id = req.query.info_id
         const ok = await Info.deleteInfo(user_id,category_id,info_id);
         if(ok){
-            return res.status(200).end()
+            return res.status(200).send({})
         }else{
-            return res.status(400).end()
+            return res.status(400).send({})
         }
     }
     catch(err){
@@ -92,7 +91,7 @@ const DeleteInfo = async(req,res) => {
 const UpdateInfo = async(req,res) => {
 
     if(!infoUpdateValidation(req.body)){
-        return res.status(400).end();
+        return res.status(400).send({});
     }
     try{       
         const user_id = req.token._id; 
@@ -114,9 +113,9 @@ const UpdateInfo = async(req,res) => {
         const ok = await Info.updateInfo(user_id,category_id,info_id,name,username,encrypted,url,description)
         
         if(ok){
-            return res.status(200).end()
+            return res.status(200).send({})
         }else{
-            return res.status(400).end()
+            return res.status(400).send({})
         }
         
     }catch(err){

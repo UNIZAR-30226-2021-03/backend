@@ -15,14 +15,28 @@ const loginSchema = Joi.object().keys(
     }
 ) 
 
-const categorySchema = Joi.object().keys(
+const categoryCreateSchema = Joi.object().keys(
     {
-       name: Joi.string().max(50).required()
+        name: Joi.string().max(50).required()
+    }
+) 
+
+const categoryDeleteSchema = Joi.object().keys(
+    {
+        category_id: Joi.string().required(),
+    }
+) 
+
+const categoryUpdateSchema = Joi.object().keys(
+    {
+        category_id: Joi.string().required(),
+        name: Joi.string().max(50).required()
     }
 ) 
 
 const infoSchema = Joi.object().keys(
     {
+        name: Joi.string().required(),
         username: Joi.string().required(),
         password: Joi.string().required(),              
         category_id: Joi.string().required(),
@@ -33,12 +47,34 @@ const infoSchema = Joi.object().keys(
 
 const infoUpdateSchema = Joi.object().keys(
     {
+        name: Joi.string(),
         username: Joi.string(),
         password: Joi.string(),            
         category_id: Joi.string().required(),
         info_id: Joi.string().required(),
         url:  Joi.string().uri(),
         description:  Joi.string()
+    }
+)
+
+const fileDownloadSchema = Joi.object().keys(
+    {
+        file_id: Joi.string().required()
+    }
+)
+
+const fileUploadSchema = Joi.object().keys(
+    {
+        info_id: Joi.string().required(),
+        category_id: Joi.string().required()
+    }
+)
+
+const fileDeleteSchema = Joi.object().keys(
+    {
+        info_id: Joi.string().required(),
+        category_id: Joi.string().required(),
+        file_id: Joi.string().required()
     }
 )
 
@@ -60,8 +96,26 @@ const loginValidation = (user) => {
     }
 }
 
-const categoryValidation = (name) => {
-    const {error} = categorySchema.validate(name)
+const categoryCreateValidation = (name) => {
+    const {error} = categoryCreateSchema.validate(name)
+    if (error === undefined){
+        return true;
+    }else{
+        return false;
+    }
+}
+
+const categoryDeleteValidation = (name) => {
+    const {error} = categoryDeleteSchema.validate(name)
+    if (error === undefined){
+        return true;
+    }else{
+        return false;
+    }
+}
+
+const categoryUpdateValidation = (name) => {
+    const {error} = categoryUpdateSchema.validate(name)
     if (error === undefined){
         return true;
     }else{
@@ -87,5 +141,34 @@ const infoUpdateValidation = (info) => {
     }
 }
 
-module.exports = {signupValidation,loginValidation,categoryValidation,infoValidation,infoUpdateValidation}
+const fileDownloadValidation = (info) => {
+    const {error} =  fileDownloadSchema.validate(info)
+    if (error === undefined){
+        return true;
+    }else{
+        return false;
+    }
+}
+
+const fileUploadValidation = (info,busboy) => {
+    const {error} =  fileUploadSchema.validate(info)
+    if (error === undefined && busboy !== undefined){
+        return true;
+    }else{
+        return false;
+    }
+}
+
+
+
+const fileDeleteValidation = (info) => {
+    const {error} =  fileDeleteSchema.validate(info)
+    if (error === undefined){
+        return true;
+    }else{
+        return false;
+    }
+}
+
+module.exports = {signupValidation,loginValidation,categoryCreateValidation,categoryDeleteValidation,categoryUpdateValidation,infoValidation,infoUpdateValidation,fileDeleteValidation,fileDownloadValidation,fileUploadValidation}
 

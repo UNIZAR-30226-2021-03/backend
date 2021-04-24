@@ -30,8 +30,8 @@ app.set('views', path.join(__dirname,'app','templates'));
 
 app.use(cors())
 app.use(morgan('dev'))
-app.use(express.json())
 app.use(busboy())
+app.use(express.json())
 app.use('/public', public)
 app.use('/private',authValidation,private)
 

@@ -1,6 +1,4 @@
 const Data = require('../models/data')
-
-const File = require('./file.helper')
 const mongoose = require('mongoose')
 
 const getInfos = async(id) => {
@@ -18,23 +16,14 @@ const getInfos = async(id) => {
     return res.category[0].info;
 }
 
-const createInfo = async(user_id,category_id,name,username,password,url,description,busboy) => {
-    if (busboy){
-        const {ok,name,file_id} = await File.uploadFile(busboy)
-        if(!ok){
-            return ok;
-        }
-    }
+const createInfo = async(user_id,category_id,name,username,password,url,description) => {
+    
     const info = {
         name: name,
         username: username,
         password: password,
         url: url,
         description: description,
-        file: {
-            name: name,
-            file_id : file_id
-        } 
     }
     const res = await Data.updateOne(
         {
@@ -45,7 +34,7 @@ const createInfo = async(user_id,category_id,name,username,password,url,descript
             }
         },
         { $push: { "category.$.info": info} })
-    return res.nModified === 1;
+    return res.nModified >= 1;
 }
 
 const deleteInfo = async(user_id,category_id,info_id) => {
@@ -71,7 +60,7 @@ const deleteInfo = async(user_id,category_id,info_id) => {
         { $pull: { "category.$.info": { _id: mongoose.Types.ObjectId(info_id) }}
     });
     
-    return res.nModified === 1;
+    return res.nModified >= 1;
 }
 
 const updateInfo = async(user_id,category_id,info_id,name,username,password,url,description) => {

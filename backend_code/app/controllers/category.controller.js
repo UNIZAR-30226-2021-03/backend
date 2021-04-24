@@ -1,4 +1,4 @@
-const {categoryValidation} = require('../helpers/validation.helper');
+const {categoryCreateValidation,categoryDeleteValidation,categoryUpdateValidation} = require('../helpers/validation.helper');
 const Category = require('../helpers/category.helper')
 
 const GetCategories = async(req,res) => {
@@ -13,7 +13,7 @@ const GetCategories = async(req,res) => {
 
 const CreateCategory = async(req,res) => {
 
-    if(!categoryValidation(req.body)){
+    if(!categoryCreateValidation(req.body)){
         return res.status(400).end();
     }
 
@@ -34,6 +34,11 @@ const CreateCategory = async(req,res) => {
 }
 
 const DeleteCategory = async(req,res) => {
+
+    if(!categoryDeleteValidation(req.query)){
+        return res.status(400).end();
+    }
+
     try{
         const user_id = req.token._id;
         const category_id = req.query.category_id;
@@ -52,6 +57,10 @@ const DeleteCategory = async(req,res) => {
 
 
 const UpdateCategory = async(req,res) => {
+    
+    if(!categoryUpdateValidation(req.body)){
+        return res.status(400).end();
+    }
     try{
         const user_id = req.token._id;
         const category_id = req.body.category_id;

@@ -21,5 +21,9 @@ router.put('/category', category.UpdateCategory);
 
 router.get('/file', file.DownloadFile);
 
+router.delete('/file',file.DeleteFile);
+
+router.post('/file',file.UploadFile);
+
 
 module.exports = router;
