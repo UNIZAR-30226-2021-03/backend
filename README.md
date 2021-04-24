@@ -159,7 +159,7 @@ return: 200
 - name string 
 - username string
 - password string
-- url es una uri
+- url es una uri válida (http(s)://*.*
 - category_id es id de categoría válido, string simple
 
 **return**:
