@@ -36,11 +36,7 @@ const categoryUpdateSchema = Joi.object().keys(
 
 const infoSchema = Joi.object().keys(
     {
-<<<<<<< HEAD
-        name: Joi.string().required(),
-=======
         name: Joi.string().max(50).required(),
->>>>>>> 51e1de29b7e749daad0af10937ad3637f1d36b33
         username: Joi.string().required(),
         password: Joi.string().required(),              
         category_id: Joi.string().required(),
@@ -51,11 +47,7 @@ const infoSchema = Joi.object().keys(
 
 const infoUpdateSchema = Joi.object().keys(
     {
-<<<<<<< HEAD
-        name: Joi.string(),
-=======
         name: Joi.string().max(50),
->>>>>>> 51e1de29b7e749daad0af10937ad3637f1d36b33
         username: Joi.string(),
         password: Joi.string(),            
         category_id: Joi.string().required(),

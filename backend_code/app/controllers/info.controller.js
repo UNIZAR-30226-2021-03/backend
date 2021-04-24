@@ -65,11 +65,7 @@ const CreateInfo = async(req,res) => {
         if(ok){
             return res.status(200).send({})
         }else{
-<<<<<<< HEAD
             return res.status(409).send({})
-=======
-            return res.status(400).send({})
->>>>>>> 51e1de29b7e749daad0af10937ad3637f1d36b33
         }
         
     }catch(err){
