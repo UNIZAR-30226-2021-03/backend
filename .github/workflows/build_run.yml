@@ -65,7 +65,7 @@ jobs:
           sudo systemctl start noip2.service
           mkdir -p "backend-app" && cd $_ 
           curl -L https://raw.githubusercontent.com/UNIZAR-30226-2021-03/backend/main/deployment/docker-compose.yml > template.yml
-          echo -e "s/\${email}/${{ secrets.EMAIL }}/\ns/\${password}/${{ secrets.EMAIL_PASSWORD }}/" > /tmp/replace.txt
+          echo -e "s/\${email}/${{ secrets.EMAIL }}/\ns/\${password}/${{ secrets.EMAIL_PASSWORD }}/\ns/\${access_token}/${{ secrets.BACKEND_ACCESS_TOKEN }}/\ns/\${verification_token}/${{ secrets.BACKEND_VERIFICATION_TOKEN }}/\ns/\${master_salt}/${{ secrets.MASTER_SALT }}/" > /tmp/replace.txt
           sed -f /tmp/replace.txt ./template.yml > docker-compose.yml
           curl -L https://raw.githubusercontent.com/UNIZAR-30226-2021-03/backend/main/deployment/start.sh > start.sh
           chmod u+x start.sh
