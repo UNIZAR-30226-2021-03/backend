@@ -3,6 +3,7 @@ const {infoValidation,infoUpdateValidation} = require('../helpers/validation.hel
 const User = require('../helpers/users.helper')
 const Info = require('../helpers/info.helper')
 const Category = require('../helpers/category.helper')
+const {MASTER_SALT} = require('../config/index.js')
 
 const crypto = require('crypto');
 
@@ -14,6 +15,7 @@ const GetInfos = async(req,res) => {
         if (exists){
             let infos = await Info.getInfos(category_id);
             let key = await User.getPassword(user_id);
+            key = key + MASTER_SALT
             key = crypto.createHash('sha256').update(String(key)).digest('base64').substr(0, 32);
 
             for (let i = 0; i < infos.length; i++){
@@ -47,7 +49,9 @@ const CreateInfo = async(req,res) => {
         const user_id = req.token._id; 
         const {name, username, password, url, description, category_id} = req.body;
         let key = await User.getPassword(user_id);
-
+       
+        key = key + MASTER_SALT
+        
         key = crypto.createHash('sha256').update(String(key)).digest('base64').substr(0, 32);
         const iv = crypto.randomBytes(16);
         const cipher = crypto.createCipheriv('aes-256-ctr',key,iv);
@@ -100,7 +104,7 @@ const UpdateInfo = async(req,res) => {
         let encrypted=undefined
         if(password !== undefined){
             let key = await User.getPassword(user_id);
-
+            key = key + MASTER_SALT
             key = crypto.createHash('sha256').update(String(key)).digest('base64').substr(0, 32);
             const iv = crypto.randomBytes(16);
             const cipher = crypto.createCipheriv('aes-256-ctr',key,iv);

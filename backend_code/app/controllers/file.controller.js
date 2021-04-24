@@ -1,5 +1,10 @@
 const Data = require('../models/data')
 const mongoose = require('mongoose')
+const User = require('../helpers/users.helper')
+const {MASTER_SALT} =  require('../config/index.js')
+const crypto = require('crypto');
+const { createEncryptStream, createDecryptStream, setPassword } = require('aes-encrypt-stream');
+
 const {fileUploadValidation,fileDownloadValidation,fileDeleteValidation} = require('../helpers/validation.helper');
 
 const DownloadFile = async(req,res) => {
@@ -7,16 +12,24 @@ const DownloadFile = async(req,res) => {
         return res.status(400).send({});
     }
     try{
+        const user_id = req.token._id;
         const gridFSBucket = new mongoose.mongo.GridFSBucket(mongoose.connection.db, {bucketName: 'uploads'});
         const file = await gridFSBucket.find({_id: mongoose.Types.ObjectId(req.query.file_id) }).toArray()
 		
         if (!file.length) {
             return res.status(400).send({})
 		}
+
+        let key = await User.getPassword(user_id);
+        key = key + MASTER_SALT
+        key = crypto.createHash('sha256').update(String(key)).digest('hex').substr(0, 256);
+        setPassword(Buffer.from(key,'hex'));
+
         res.setHeader('Content-Disposition', 'attachment; filename="' + file[0].filename + '"')
         
+        
         gridFSBucket.openDownloadStream(mongoose.Types.ObjectId(req.query.file_id)).
-        pipe(res).
+        pipe(createDecryptStream(res)).
         on('error', (error) => {
             return res.status(400).end();
         }).
@@ -25,6 +38,7 @@ const DownloadFile = async(req,res) => {
         });
         
     }catch(err){
+        console.log(err)
         return res.status(500).send(err);
     } 
 }
@@ -37,15 +51,22 @@ const UploadFile = async(req,res) => {
     }
     
     try{
+        
         const user_id = req.token._id;
         const {info_id,category_id} = req.query;
         const gridFSBucket = new mongoose.mongo.GridFSBucket(mongoose.connection.db, {bucketName: 'uploads'});
 
+        let key = await User.getPassword(user_id);
+        key = key + MASTER_SALT
+        key = crypto.createHash('sha256').update(String(key)).digest('hex').substr(0, 256);
+        setPassword(Buffer.from(key,'hex'));
+
+
         req.pipe(req.busboy).
         on('file',  (fieldname, file, filename) => {
-		    file.pipe(gridFSBucket.openUploadStream(filename)).
+		    createEncryptStream(file).pipe(gridFSBucket.openUploadStream(filename)).
 		    on('error', (error) => {
-                return res.status(500).send({})
+                return res.status(409).send({})
 	  	    }).
 	  	    on('finish', async (data) => {
 			    const update = {
@@ -74,6 +95,7 @@ const UploadFile = async(req,res) => {
 	    	});
         }); 
     }catch(err){
+        console.log(err)
         return res.status(500).send(err)
     }
 }

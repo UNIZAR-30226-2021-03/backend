@@ -5,5 +5,6 @@ module.exports = {
     DB_CONN: process.env.DB_CONN || "mongodb+srv://KeyPaXAdmin:SaBeBoVeBeCa123456@cluster0.yyh5k.mongodb.net/KeyPax?retryWrites=true&w=majority",
     PORT: process.env.PORT || 8080,
     USER_EMAIL : process.env.USER_EMAIL || 'barbarosoft@gmail.com',
-    USER_PASS: process.env.USER_PASS || 'SaBeBoVeBeCa123456'
+    USER_PASS: process.env.USER_PASS || 'SaBeBoVeBeCa123456',
+    MASTER_SALT: process.env.MASTER_SALT || 'fldfjs82j8Akj-f892)DJA'
 };
