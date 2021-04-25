@@ -1,6 +1,6 @@
 # BACKEND
 
-## 1: POST to https://keypax-api.sytes.net/public/signup 
+## 1: REGISTRARSE - POST to https://keypax-api.sytes.net/public/signup 
 
 **headers**: none
 
@@ -37,7 +37,7 @@ body: {
 ```
 return: 200
 
-## 2: POST to https://keypax-api.sytes.net/public/login
+## 2: INICIAR SESIÓN - POST to https://keypax-api.sytes.net/public/login
 
 **headers**: none
 
@@ -76,23 +76,7 @@ return: 200
  { _2faToken: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MDY4MmFkZDc3ZjNhYjkxZTgyYzY0YzciLCJpYXQiOjE2MTc0Mzk0NTMsImV4cCI6MTYxNzQ0MDM1M30.67xl3NatXWMiqIf6LSLi-m0l8MBVzr_aQJ-XSanxgo0"}
 ```
 
-
-## 3: GET to https://keypax-api.sytes.net/public/verify/:token
-
-**headers**: none
-
-**query**: none
-
-**params**: token
-
-**return**:
-- Status code 401: token incorrecto o expirado
-- Status code 200: token correcto, verifica el email del usuario. 
-
-**example**: 
-https://keypax-api.sytes.net/public/verify/eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MDY4MmFkZDc3ZjNhYjkxZTgyYzY0YzciLCJpYXQiOjE2MTc0NDIzMjIsImV4cCI6MTYxNzQ0MzIyMn0.50LBHkmr6laRUAeC5Yp-Ab3kHL9N765Eo8Gy1oV-gus
-
-## 4: POST to https://keypax-api.sytes.net/public/2fa
+## 3: COMPLETAR 2FA - POST to https://keypax-api.sytes.net/public/2fa
 
 **headers**: none
 
@@ -114,7 +98,23 @@ return: 200
  { accessToken: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MDY4MmFkZDc3ZjNhYjkxZTgyYzY0YzciLCJpYXQiOjE2MTc0Mzk0NTMsImV4cCI6MTYxNzQ0MDM1M30.67xl3NatXWMiqIf6LSLi-m0l8MBVzr_aQJ-XSanxgo0"}
 ```
 
-## 5: POST to https://keypax-api.sytes.net/private/category
+## 4: VERIFICAR EMAIL - GET to https://keypax-api.sytes.net/public/verify/:token
+
+**headers**: none
+
+**query**: none
+
+**params**: token
+
+**return**:
+- Status code 401: token incorrecto o expirado
+- Status code 200: token correcto, verifica el email del usuario. 
+
+**example**: 
+https://keypax-api.sytes.net/public/verify/eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MDY4MmFkZDc3ZjNhYjkxZTgyYzY0YzciLCJpYXQiOjE2MTc0NDIzMjIsImV4cCI6MTYxNzQ0MzIyMn0.50LBHkmr6laRUAeC5Yp-Ab3kHL9N765Eo8Gy1oV-gus
+
+
+## 5: CREAR CATEGORÍA - POST to https://keypax-api.sytes.net/private/category
 
 **headers**: {accessToken: "token de acceso expedido por login + 2fa "}
 
@@ -144,7 +144,7 @@ body : { "name": "Universidad"}
 return: 200
 
 
-## 6: POST to https://keypax-api.sytes.net/private/info
+## 6: CREAR INFO - POST to https://keypax-api.sytes.net/private/info
 
 **headers**: {accessToken: "token de acceso expedido por login + 2fa "}
 
@@ -187,7 +187,7 @@ body : {
 return: 200
 
 
-## 7: DELETE to https://keypax-api.sytes.net/private/category
+## 7: BORRAR CATEGORÍA - DELETE to https://keypax-api.sytes.net/private/category
 
 **headers**: {accessToken: "token de acceso expedido por login + 2fa "}
 
@@ -206,7 +206,7 @@ headers: {accessToken: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MDY4MmF
 
 url:  https://keypax-api.sytes.net/private/category/?category_id=1ef1134fdacb1
 
-## 8: DELETE to https://keypax-api.sytes.net/private/info
+## 8: BORRAR INFO - DELETE to https://keypax-api.sytes.net/private/info
 
 **headers**: {accessToken: "token de acceso expedido por login + 2fa "}
 
@@ -225,7 +225,7 @@ headers: {accessToken: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MDY4MmF
 
 url:  https://keypax-api.sytes.net/private/category/?info_id=1fb25ywef&category_id=1ef1134fdacb1
 
-## 9: GET to https://keypax-api.sytes.net/private/categories
+## 9: LISTAR CATEGORÍAS - GET to https://keypax-api.sytes.net/private/categories
 
 **headers**: {accessToken: "token de acceso expedido por login + 2fa "}
 
@@ -256,7 +256,7 @@ url:  https://keypax-api.sytes.net/private/categories
     }
 ]
 ```
-## 10: GET to https://keypax-api.sytes.net/private/infos
+## 10: LISTAR INFOS - GET to https://keypax-api.sytes.net/private/infos
 
 **headers**: {accessToken: "token de acceso expedido por login + 2fa "}
 
@@ -305,7 +305,7 @@ url: https://keypax-api.sytes.net/private/infos/?category_id=6638380ccb63284dfa7
 
 ```
 
-## 11: PUT to https://keypax-api.sytes.net/private/category
+## 11:  ACTUALIZAR CATEGORÍA - PUT to https://keypax-api.sytes.net/private/category
 
 **headers**: {accessToken: "token de acceso expedido por login + 2fa "}
 
@@ -335,7 +335,7 @@ body : { "name": "Universidad", "category": "sdf1q42143kn"}
 ```
 return: 200
 
-## 12: PUT to https://keypax-api.sytes.net/private/info
+## 12: ACTUALIZAR INFO - PUT to https://keypax-api.sytes.net/private/info
 
 **headers**: {accessToken: "token de acceso expedido por login + 2fa "}
 
@@ -375,4 +375,103 @@ body : {
 ```
 return: 200
 
-## FALTAN RUTAS METER FICHEROS Y ORDENACIÓN
+## 13: UPLOAD ARCHIVO - POST to https://keypax-api.sytes.net/private/file
+
+**headers**: 
+```
+{
+    accessToken: "token de acceso expedido por login + 2fa ",
+    Content-Type: 'multipart/form-data'
+}
+```
+
+**body**: Objeto FormData: ("file", archivo)
+
+**query**: category_id, info_id
+
+https://stackoverflow.com/questions/43013858/how-to-post-a-file-from-a-form-with-axios
+
+**requirements**: 
+
+- category_id es id de categoría válido, string simple
+- info_id es id de info válido, string simple
+
+**return**:
+- Status code 400: no se puede actualizar la info y/o no se cumplen los requirements
+- Status code 401: token no verificado
+- Status code 403: no existe token
+- Status code 409: error subiendo el archivo
+- Status code 500: server error
+- Status code 200: petición procesada correctamente, sube el archivo y actualiza la info
+
+**example**:
+
+**Queda sujeto a revisión el formato de envío del fichero (hacer pruebas con equipo de backend)**
+
+## 14: DOWNLOAD ARCHIVO - GET to https://keypax-api.sytes.net/private/file
+
+**headers**: 
+```
+{
+    accessToken: "token de acceso expedido por login + 2fa ",
+}
+```
+
+**body**: none
+
+**query**: file_id
+
+**requirements**: 
+
+- file_id es id de archivo válido, string simple.
+
+**return**:
+- Status code 400: no se cumplen los requirements
+- Status code 401: token no verificado
+- Status code 403: no existe token
+- Status code 409: error bajando el archivo
+- Status code 500: server error
+- Status code 200: petición procesada correctamente, descarga el archivo en el cliente
+
+**example**:
+
+headers: {accessToken: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MDY4MmFkZDc3ZjNhYjkxZTgyYzY0YzciLCJpYXQiOjE2MTc0Mzk0NTMsImV4cCI6MTYxNzQ0MDM1M30.67xl3NatXWMiqIf6LSLi-m0l8MBVzr_aQJ-XSanxgo0"}
+
+url: https://keypax-api.sytes.net/private/infos/?file_id=6638380ccb63284dfa78089b
+
+return 200
+
+## 15: BORRAR ARCHIVO - DELETE to https://keypax-api.sytes.net/private/file
+
+**headers**: 
+```
+{
+    accessToken: "token de acceso expedido por login + 2fa ",
+}
+```
+
+**body**: none
+
+**query**: category_id, info_id,  file_id
+
+**requirements**: 
+
+- category_id es id de categoría válido, string simple.
+- info_id es id de info válido, perteneciente a la categoría con id category_id, string simple.
+- file_id es id de archivo válido, perteneciente a la info con id info_id, string simple.
+
+**return**:
+- Status code 400: no se cumplen los requirements y/o no se puede borrar el archivo y/o no se puede actualizar la info
+- Status code 401: token no verificado
+- Status code 403: no existe token
+- Status code 500: server error
+- Status code 200: petición procesada correctamente, elimina el archivo y lo quita de la info
+
+**example**:
+
+headers: {accessToken: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MDY4MmFkZDc3ZjNhYjkxZTgyYzY0YzciLCJpYXQiOjE2MTc0Mzk0NTMsImV4cCI6MTYxNzQ0MDM1M30.67xl3NatXWMiqIf6LSLi-m0l8MBVzr_aQJ-XSanxgo0"}
+
+url: https://keypax-api.sytes.net/private/file?file_id=608547bbe293073edf852f06&category_id=60853ce0de97751e76f7bc85&info_id=6085459ae29307be00852f01
+
+return 200
+

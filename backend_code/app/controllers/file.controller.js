@@ -31,7 +31,7 @@ const DownloadFile = async(req,res) => {
         gridFSBucket.openDownloadStream(mongoose.Types.ObjectId(req.query.file_id)).
         pipe(createDecryptStream(res)).
         on('error', (error) => {
-            return res.status(400).end();
+            return res.status(409).end();
         }).
         on('finish', () => {
             return res.status(200).end()
