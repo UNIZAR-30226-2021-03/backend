@@ -1,3 +1,3 @@
 # TODO LIST
 
-Wiki y tareas de gestión
+Tareas de gestión.
