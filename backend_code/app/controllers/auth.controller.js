@@ -37,7 +37,7 @@ const SingUp = async(req,res) => {
 
         if (err){
             await User.deleteUser(user._id);
-            return res.status(501).send({});
+            return res.status(480).send({});
         }
 
         return res.status(200).send({});
@@ -77,7 +77,7 @@ const LogIn = async(req,res) => {
         const err = mail.send2FA(email,code);
         
         if (err){
-            return res.status(501).send({});
+            return res.status(480).send({});
         }
 
         return res.status(200).send({_2faToken:token});
@@ -106,7 +106,7 @@ const _2FA_Auth = async(req,res) => {
     try{
         const token = req.body._2faToken;
         if(!token){
-            res.status(403).send({});
+            res.status(400).send({});
         }
 
         const secret = jwt.verify(token,config._2FA_TOKEN);

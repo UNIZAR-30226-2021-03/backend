@@ -29,7 +29,6 @@ const GetInfos = async(req,res) => {
 
             return res.status(200).send(infos);
         }else{
-            
             return res.status(404).send({})
         }
         
@@ -65,7 +64,7 @@ const CreateInfo = async(req,res) => {
         if(ok){
             return res.status(200).send({})
         }else{
-            return res.status(409).send({})
+            return res.status(462).send({})
         }
         
     }catch(err){
@@ -83,7 +82,7 @@ const DeleteInfo = async(req,res) => {
         if(ok){
             return res.status(200).send({})
         }else{
-            return res.status(400).send({})
+            return res.status(463).send({})
         }
     }
     catch(err){
@@ -119,7 +118,7 @@ const UpdateInfo = async(req,res) => {
         if(ok){
             return res.status(200).send({})
         }else{
-            return res.status(400).send({})
+            return res.status(464).send({})
         }
         
     }catch(err){

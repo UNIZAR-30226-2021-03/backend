@@ -17,7 +17,7 @@ const DownloadFile = async(req,res) => {
         const file = await gridFSBucket.find({_id: mongoose.Types.ObjectId(req.query.file_id) }).toArray()
 		
         if (!file.length) {
-            return res.status(400).send({})
+            return res.status(404).send({})
 		}
 
         let key = await User.getPassword(user_id);
@@ -31,7 +31,7 @@ const DownloadFile = async(req,res) => {
         gridFSBucket.openDownloadStream(mongoose.Types.ObjectId(req.query.file_id)).
         pipe(createDecryptStream(res)).
         on('error', (error) => {
-            return res.status(409).end();
+            return res.status(471).end();
         }).
         on('finish', () => {
             return res.status(200).end()
@@ -66,7 +66,7 @@ const UploadFile = async(req,res) => {
         on('file',  (fieldname, file, filename) => {
 		    createEncryptStream(file).pipe(gridFSBucket.openUploadStream(filename)).
 		    on('error', (error) => {
-                return res.status(409).send({})
+                return res.status(472).send({})
 	  	    }).
 	  	    on('finish', async (data) => {
 			    const update = {
@@ -91,7 +91,7 @@ const UploadFile = async(req,res) => {
                 if (resultado.nModified >= 1){
                     return res.status(200).send({})
                 }
-                return res.status(400).send({})
+                return res.status(464).send({})
 	    	});
         }); 
     }catch(err){
@@ -114,7 +114,7 @@ const DeleteFile = async (req,res) => {
         try{
             gridFSBucket.delete( mongoose.Types.ObjectId(file_id))
         }catch(err){
-            return res.status(400).send(err)
+            return res.status(473).send(err)
         }
         
         const resultado = await Data.updateOne(
@@ -134,7 +134,7 @@ const DeleteFile = async (req,res) => {
         if (resultado.nModified >= 1){
             return res.status(200).send({})
         }
-        return res.status(400).send({})
+        return res.status(464).send({})
     }catch(err){
         return res.status(500).send(err)
     }

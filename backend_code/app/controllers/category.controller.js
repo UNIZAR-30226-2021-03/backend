@@ -25,7 +25,7 @@ const CreateCategory = async(req,res) => {
         if(ok){
             return res.status(200).send({})
         }else{
-            return res.status(400).send({})
+            return res.status(452).send({})
         }
         
     }catch(err){
@@ -46,7 +46,7 @@ const DeleteCategory = async(req,res) => {
         if(ok){
             return res.status(200).send({})
         }else{
-            return res.status(400).send({})
+            return res.status(453).send({})
         }
     }
     catch(err){
@@ -69,11 +69,11 @@ const UpdateCategory = async(req,res) => {
         if(ok){
             return res.status(200).send({})
         }else{
-            return res.status(400).send({})
+            return res.status(454).send({})
         }
     }
     catch(err){
-        console.log(err);
+        
         return res.status(500).send(err)
     }
 }
