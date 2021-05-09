@@ -10,8 +10,9 @@ const getCategories = async(id) => {
         name: item.name
       }
     });
-    console.log(categories);
-    return JSON.stringify(categories);
+    //console.log(JSON.stringify(categories));
+    //return JSON.stringify(categories);
+    return categories;
 }
 
 const createCategory = async(id,name) => {
