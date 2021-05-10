@@ -10,6 +10,8 @@ const getCategories = async(id) => {
         name: item.name
       }
     });
+    //console.log(JSON.stringify(categories));
+    //return JSON.stringify(categories);
     return categories;
 }
 
