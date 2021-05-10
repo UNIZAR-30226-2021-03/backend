@@ -95,5 +95,22 @@ const updateInfo = async(user_id,category_id,info_id,name,username,password,url,
     return res.nModified >= 1;
 }
 
+const getInfoByURL = async(user_id,url) => {
+    
 
-module.exports = {createInfo,deleteInfo,getInfos, updateInfo}
+    const res = await Data.find(
+        {
+        _id : mongoose.Types.ObjectId(user_id),
+        'category.info.url': url
+        },
+        {
+            'category.info.username': 1,
+            'category.info.password': 1
+        });
+
+    return res;
+}
+
+
+
+module.exports = {createInfo,deleteInfo,getInfos,updateInfo,getInfoByURL}

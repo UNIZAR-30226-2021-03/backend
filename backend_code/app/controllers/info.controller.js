@@ -6,6 +6,7 @@ const Category = require('../helpers/category.helper')
 const {MASTER_SALT} = require('../config/index.js')
 
 const crypto = require('crypto');
+const { info } = require('console');
 
 const GetInfos = async(req,res) => {
     try{
@@ -126,4 +127,46 @@ const UpdateInfo = async(req,res) => {
     }
 }
 
-module.exports = {GetInfos,CreateInfo,DeleteInfo,UpdateInfo}
+const GetInfoByURL = async(req,res) => {
+    try{
+        const user_id = req.token._id;
+        const url = req.query.url;
+        let infos = await Info.getInfoByURL(user_id,url);
+        
+        var result = [];
+        if(infos !== []){
+            
+            let key = await User.getPassword(user_id);
+            key = key + MASTER_SALT
+            key = crypto.createHash('sha256').update(String(key)).digest('base64').substr(0, 32);
+
+            for (const info in infos){
+                for(const cat in infos[info].category){
+                    for(const pass in infos[info].category[cat].info){
+
+                        let password =  infos[info].category[cat].info[pass].password;
+                        let content = password.split("-")[1];
+                        let iv = password.split("-")[0];                
+                        let decipher = crypto.createDecipheriv('aes-256-ctr',key,Buffer.from(iv, 'hex'));
+                        let decrypted = Buffer.concat([decipher.update(Buffer.from(content, 'hex')), decipher.final()]);
+                        password = decrypted.toString();   
+                        let username = infos[info].category[cat].info[pass].username;
+
+                        result.push({
+                            username,
+                            password
+                        })
+                    }
+                }
+            }
+        }else{
+            return res.status(404).send({})
+        }
+        return res.status(200).send(result);
+    }catch(err){
+        console.log(err);
+        return res.status(500).send(err);
+    }
+}
+
+module.exports = {GetInfos,CreateInfo,DeleteInfo,UpdateInfo,GetInfoByURL}

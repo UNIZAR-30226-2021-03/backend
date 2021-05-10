@@ -15,6 +15,8 @@ router.get('/categories',category.GetCategories);
 
 router.get('/infos',info.GetInfos);
 
+router.get('/infobyurl',info.GetInfoByURL);
+
 router.put('/info',info.UpdateInfo);
 
 router.put('/category', category.UpdateCategory);
