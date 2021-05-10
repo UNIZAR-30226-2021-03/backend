@@ -113,7 +113,8 @@ const _2FA_Auth = async(req,res) => {
         if (secret){
             if(secret._2faToken == req.body.code){
                 const accessToken = jwt.sign({_id: secret._id},config.ACCESS_TOKEN,{expiresIn: 3600});
-                return res.status(200).send({accessToken:accessToken});
+                const nickname = await User.getNickname(secret._id);
+                return res.status(200).send({accessToken:accessToken,nickname:nickname});
             }else{
                 return res.status(401).send({});
             }

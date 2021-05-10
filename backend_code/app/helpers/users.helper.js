@@ -7,6 +7,11 @@ const getPassword = async(id) => {
     return password
 }
 
+const getNickname = async(id) => {
+    const {nickname} = await Data.findById(id);
+    return nickname
+}
+
 const findUserByEmail = async(email) => {
     const user = await Data.findOne({email:email})
     return user
@@ -42,4 +47,4 @@ const updateVerify = async(id) => {
     return await Data.findByIdAndUpdate(id,{verified:true})
 }
 
-module.exports = {findUserByEmail,createUser,deleteUser,updateUserEmail,updateUserNickName,updateUser, updateVerify,getPassword}
+module.exports = {findUserByEmail,createUser,deleteUser,updateUserEmail,updateUserNickName,updateUser, updateVerify,getPassword,getNickname}
