@@ -141,7 +141,7 @@ none
 
 **resultado**
 
-Devuelve un token de acceso ("accessToken") tiempo de expiración de 1h.
+Devuelve un token de acceso ("accessToken") tiempo de expiración de 1h y el nickname del usuario.
 
 **example**:
 
@@ -158,7 +158,8 @@ return:
 - status code 200
 ```
  { 
-     "accessToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MDY4MmFkZDc3ZjNhYjkxZTgyYzY0YzciLCJpYXQiOjE2MTc0Mzk0NTMsImV4cCI6MTYxNzQ0MDM1M30.67xl3NatXWMiqIf6LSLi-m0l8MBVzr_aQJ-XSanxgo0"
+     "accessToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MDY4MmFkZDc3ZjNhYjkxZTgyYzY0YzciLCJpYXQiOjE2MTc0Mzk0NTMsImV4cCI6MTYxNzQ0MDM1M30.67xl3NatXWMiqIf6LSLi-m0l8MBVzr_aQJ-XSanxgo0",
+     "nickname": "barbara"
 }
 ```
 
