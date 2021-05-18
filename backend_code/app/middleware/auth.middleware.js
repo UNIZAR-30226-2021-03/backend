@@ -17,7 +17,7 @@ const authValidation = (req,res,next) => {
             return res.status(401).send({})
         }
     }catch(err){
-        console.log(token);
+        console.log(req.header('accessToken'));
         console.log(err);
         return res.status(401).send(err)
     }
