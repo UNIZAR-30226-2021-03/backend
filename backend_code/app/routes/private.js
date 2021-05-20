@@ -2,6 +2,7 @@ const router = require('express').Router()
 const category = require('../controllers/category.controller.js');
 const info = require('../controllers/info.controller.js');
 const file = require('../controllers/file.controller.js');
+const auth = require('../controllers/auth.controller.js');
 
 router.post('/category',category.CreateCategory);
 
@@ -27,5 +28,6 @@ router.delete('/file',file.DeleteFile);
 
 router.post('/file',file.UploadFile);
 
+router.post('/checksession',auth.SessionIsValid);
 
 module.exports = router;

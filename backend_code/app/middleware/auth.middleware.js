@@ -2,11 +2,8 @@ const jwt = require('jsonwebtoken')
 const config = require('../config')
 
 const authValidation = (req,res,next) => {
-    console.log(req.header('iv-user'));
     try{
         const token = req.header('accessToken')
-        console.log(req.header('accessToken'));
-
         if(!token){
             return res.status(403).send({})
         }

@@ -126,4 +126,8 @@ const _2FA_Auth = async(req,res) => {
         return res.status(401).send(err);
     }
 }
-module.exports = {SingUp,LogIn,Verify,_2FA_Auth}
+
+const SessionIsValid = async(req,res) => {
+    return res.status(200).send({});
+}
+module.exports = {SingUp,LogIn,Verify,_2FA_Auth,SessionIsValid}
