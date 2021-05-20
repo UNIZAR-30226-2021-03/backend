@@ -28,6 +28,6 @@ router.delete('/file',file.DeleteFile);
 
 router.post('/file',file.UploadFile);
 
-router.post('/checksession',auth.SessionIsValid);
+router.get('/checksession',auth.SessionIsValid);
 
 module.exports = router;
