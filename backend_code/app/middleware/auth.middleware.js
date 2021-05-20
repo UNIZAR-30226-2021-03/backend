@@ -2,7 +2,6 @@ const jwt = require('jsonwebtoken')
 const config = require('../config')
 
 const authValidation = (req,res,next) => {
-    console.log(req);
     try{
         const token = req.header('accessToken')
         console.log(req.header('accessToken'));
