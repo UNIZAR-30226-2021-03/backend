@@ -575,7 +575,10 @@ https://stackoverflow.com/questions/43013858/how-to-post-a-file-from-a-form-with
 - info_id es id de info válido, string simple
 
 **resultado**
-petición procesada correctamente, sube el archivo y actualiza la info
+- status code 200 petición procesada correctamente, sube el archivo y actualiza la info
+´´´
+{ "file_id":  "341d13g3232"}
+´´´
 
 **example**:
 
