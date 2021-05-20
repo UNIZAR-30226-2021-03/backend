@@ -17,7 +17,7 @@ const DownloadFile = async(req,res) => {
         const file = await gridFSBucket.find({_id: mongoose.Types.ObjectId(req.query.file_id) }).toArray()
 		
         if (!file.length) {
-            return res.status(404).send({})
+            return res.status(404).send({status:"404"})
 		}
 
         let key = await User.getPassword(user_id);
